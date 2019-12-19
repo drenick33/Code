@@ -1,0 +1,147 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://AerisPianoByTannerHelland.ogg" type="AudioStream" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://ice-cubes-glass-daniel_simon.wav" type="AudioStream" id=3]
+[ext_resource path="res://OptionButton.gd" type="Script" id=4]
+[ext_resource path="res://PlayButton.gd" type="Script" id=5]
+[ext_resource path="res://HSlider.gd" type="Script" id=6]
+[ext_resource path="res://CheckBoxReverb.gd" type="Script" id=7]
+[ext_resource path="res://VolumeSlider.gd" type="Script" id=8]
+
+[node name="Node" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+bus = "Reverb"
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 377, 215 )
+texture = ExtResource( 2 )
+
+[node name="SPRITEAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sprite"]
+position = Vector2( 5, -3 )
+stream = ExtResource( 3 )
+bus = "LeftRight"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1025.0
+margin_bottom = 601.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1018.0
+margin_bottom = 594.0
+alignment = 1
+
+[node name="SoundContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 214.0
+margin_right = 1011.0
+margin_bottom = 234.0
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/SoundContainer"]
+margin_right = 41.0
+margin_bottom = 20.0
+script = ExtResource( 4 )
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 238.0
+margin_right = 1011.0
+margin_bottom = 258.0
+
+[node name="PlayButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+margin_right = 81.0
+margin_bottom = 20.0
+text = "Play Sound"
+script = ExtResource( 5 )
+
+[node name="StopButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+margin_left = 85.0
+margin_right = 174.0
+margin_bottom = 20.0
+text = "Stop Playing"
+
+[node name="SliderContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 262.0
+margin_right = 1011.0
+margin_bottom = 278.0
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/VBoxContainer/SliderContainer"]
+margin_right = 200.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 200, 0 )
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+script = ExtResource( 6 )
+
+[node name="LabelContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 282.0
+margin_right = 1011.0
+margin_bottom = 296.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/LabelContainer"]
+margin_right = 129.0
+margin_bottom = 14.0
+text = "Audio Pan Left/Right"
+align = 1
+valign = 1
+
+[node name="LoopContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 300.0
+margin_right = 1011.0
+margin_bottom = 324.0
+
+[node name="Loop" type="Label" parent="PanelContainer/VBoxContainer/LoopContainer"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "Loop?"
+
+[node name="CheckBoxLoop" type="CheckBox" parent="PanelContainer/VBoxContainer/LoopContainer"]
+margin_left = 41.0
+margin_right = 65.0
+margin_bottom = 24.0
+
+[node name="ReverbContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 328.0
+margin_right = 1011.0
+margin_bottom = 352.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/ReverbContainer"]
+margin_top = 5.0
+margin_right = 44.0
+margin_bottom = 19.0
+text = "Reverb"
+
+[node name="CheckBoxReverb" type="CheckBox" parent="PanelContainer/VBoxContainer/ReverbContainer"]
+margin_left = 48.0
+margin_right = 72.0
+margin_bottom = 24.0
+script = ExtResource( 7 )
+
+[node name="VolumeContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 356.0
+margin_right = 1011.0
+margin_bottom = 372.0
+
+[node name="VolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/VolumeContainer"]
+margin_right = 200.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -80.0
+max_value = 0.0
+value = -40.0
+ticks_on_borders = true
+script = ExtResource( 8 )
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/SoundContainer/OptionButton" to="PanelContainer/VBoxContainer/SoundContainer/OptionButton" method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ButtonContainer/PlayButton" to="PanelContainer/VBoxContainer/ButtonContainer/PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ButtonContainer/StopButton" to="PanelContainer/VBoxContainer/ButtonContainer/PlayButton" method="_on_StopButton_pressed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/SliderContainer/HSlider" to="PanelContainer/VBoxContainer/SliderContainer/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="toggled" from="PanelContainer/VBoxContainer/ReverbContainer/CheckBoxReverb" to="PanelContainer/VBoxContainer/ReverbContainer/CheckBoxReverb" method="_on_CheckBoxReverb_toggled"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/VolumeContainer/VolumeSlider" to="PanelContainer/VBoxContainer/VolumeContainer/VolumeSlider" method="_on_VolumeSlider_value_changed"]

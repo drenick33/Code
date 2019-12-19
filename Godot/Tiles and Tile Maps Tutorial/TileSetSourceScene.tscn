@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tileset.png" type="Texture" id=1]
+
+[node name="Node" type="Node"]
+
+[node name="Tile1" type="Sprite" parent="."]
+position = Vector2( 7.94164, 7.51236 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 16, 16, 16 )
+
+[node name="Tile2" type="Sprite" parent="."]
+position = Vector2( 24.2542, 7.51236 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 16, 16, 16 )
+
+[node name="Tile3" type="Sprite" parent="."]
+position = Vector2( 40.996, 7.94163 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 16, 16, 16 )
+
+[node name="Tile4" type="Sprite" parent="."]
+position = Vector2( 9.01484, 25.3274 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 32, 16, 16 )
+
+[node name="Tile5" type="Sprite" parent="."]
+position = Vector2( 25.3274, 24.6835 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 32, 16, 16 )
+
+[node name="Tile6" type="Sprite" parent="."]
+position = Vector2( 42.7131, 24.8981 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="Tile7" type="Sprite" parent="."]
+position = Vector2( 9.22947, 41.8546 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 32, 48, 16, 16 )
+
+[node name="Tile8" type="Sprite" parent="."]
+position = Vector2( 25.1127, 41.4253 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 48, 16, 16 )
+
+[node name="Tile9" type="Sprite" parent="."]
+position = Vector2( 42.4985, 41.6399 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 48, 16, 16 )
