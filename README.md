@@ -1,2 +1,2 @@
 # Code
-Random code Ii write to learn
+Random code I used to learn
