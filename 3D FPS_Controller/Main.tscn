@@ -1,0 +1,163 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://SmallSlope.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Platform.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+[ext_resource path="res://ladder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://DirectionalLight.gd" type="Script" id=6]
+[ext_resource path="res://Trampoline.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=8]
+[ext_resource path="res://stairs.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Screenshots/_0005_AllSkyFree_Screen_05.jpg" type="Texture" id=10]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="PanoramaSky" id=2]
+panorama = ExtResource( 10 )
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+
+[sub_resource type="BoxShape" id=4]
+
+[sub_resource type="CylinderShape" id=5]
+radius = 3.20206
+
+[sub_resource type="SphereShape" id=6]
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 1.65762, 1, 1 )
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Platform" parent="." instance=ExtResource( 3 )]
+transform = Transform( 3.78585, 0, 0, 0, 1, 0, 0, 0, 3.64027, 0, 0, 0 )
+
+[node name="Platform2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 22.8047, 0, 0, 0, 1, 0, 0, 0, 18.7576, 0, -36.4442, 0 )
+
+[node name="Wall" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.00393086, -3.1304, 0, -1.81542, 0.000159051, 0, 0, 0, 3.64027, -29.6842, 13.26, 0.95899 )
+
+[node name="Wall2" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.00755129, -6.01357, 0, -1.81542, 0.000159051, 0, 0, 0, 3.64027, 29.2383, 13.8121, 0.927748 )
+
+[node name="Wall3" parent="." instance=ExtResource( 3 )]
+transform = Transform( -7.62655e-06, -0.00607351, 3.6402, -1.81542, 0.000159051, 0, 0.00372902, 2.96965, 0.065658, -0.317764, 13.4288, -28.4457 )
+
+[node name="Wall4" parent="." instance=ExtResource( 3 )]
+transform = Transform( -7.62655e-06, -0.00607351, 3.6402, -1.81542, 0.000159051, 0, 0.00378798, 3.01661, 0.0666962, -0.317764, 12.3562, 28.4035 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.285583, 0.929989, 0.231436, 0.373305, -0.330369, 0.866891, 0.882658, -0.161173, -0.441517, 0, 37.8984, 0 )
+light_color = Color( 0.32549, 0.937255, 0.392157, 1 )
+light_energy = 16.0
+light_indirect_energy = 16.0
+shadow_enabled = true
+script = ExtResource( 6 )
+
+[node name="Player" type="KinematicBody" parent="."]
+script = ExtResource( 4 )
+
+[node name="Capsule" type="CollisionShape" parent="Player"]
+transform = Transform( 0.4, 0, 0, 0, -1.74846e-08, -1.1, 0, 0.4, -4.80825e-08, 0, 1.9045, 0.690738 )
+shape = SubResource( 1 )
+
+[node name="head" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10645, 0.708337 )
+
+[node name="Camera" type="Camera" parent="Player/head"]
+environment = SubResource( 3 )
+far = 206.6
+
+[node name="RayCast" type="RayCast" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0234476, 0.0299972, 0.748589 )
+enabled = true
+exclude_parent = false
+
+[node name="SmallSlope" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26118, -9.73316 )
+
+[node name="SmallSlope4" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.0359636, 0.33865, 1.66583, 0, 0.940833, -0.600387, -0.999353, -0.0121869, -0.059948, 10.3297, 4.03322, -9.73316 )
+
+[node name="SmallSlope5" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.9992, -0.0210845, -0.0602314, 0.000849631, 0.838445, -0.965571, 0.0399943, -0.544578, -1.48428, 6.15432, 4.49167, 16.7388 )
+
+[node name="SmallSlope2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.58107, 1.26118, -9.73316 )
+
+[node name="SmallSlope3" parent="." instance=ExtResource( 2 )]
+transform = Transform( -7.29965e-05, 0, 1.04429, 0, 1.04429, 0, -3.83466, 0, -0.000268044, -8.75949, 1.25047, 7.40122 )
+
+[node name="ladder" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 3.49705, 0, 0, 0, 1, 0, 3.47709, 27.7258 )
+
+[node name="ladder2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 3.49705, 0, 0, 0, 1, 0, 10.1559, 27.7258 )
+
+[node name="ladder3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 3.49705, 0, 0, 0, 1, 0, 16.7938, 27.7258 )
+
+[node name="ladder4" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 3.49705, 0, 0, 0, 1, 0, 23.3525, 27.7258 )
+
+[node name="ladder_area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 3.49705, 0, 0, 0, 1, 0, 3.47709, 27.7258 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ladder_area"]
+transform = Transform( 0.615617, 0, 0, 0, 6.69313, 0, 0, 0, 0.191672, 0.407737, 0, -0.0683498 )
+shape = SubResource( 4 )
+
+[node name="Trampoline" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7885, 2.39543, 6.64784 )
+
+[node name="Area" type="Area" parent="Trampoline"]
+transform = Transform( 1, 0, 0, 0, 1.67092, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Trampoline/Area"]
+transform = Transform( 1, 0, 0, 0, -0.242355, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="Ball" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 0.958743, 0, 0, 0, 1, 17.9171, 3.47709, -0.988079 )
+mass = 1.62449
+
+[node name="Ball_Area" type="Area" parent="Ball"]
+transform = Transform( 1.15718, 0, 0, 0, 1.01059, 0, 0, 0, 1.09324, 0, 0.0746722, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball/Ball_Area"]
+shape = SubResource( 6 )
+
+[node name="Trampoline2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46632, 8.69713, -9.90565 )
+
+[node name="Area" type="Area" parent="Trampoline2"]
+transform = Transform( 1, 0, 0, 0, 1.67092, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Trampoline2/Area"]
+transform = Transform( 1, 0, 0, 0, -0.242355, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="stairs" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48733, 0, 10.1335 )
+
+[node name="StaticBody17" type="StaticBody" parent="stairs"]
+
+[node name="CollisionShape" type="CollisionShape" parent="stairs/StaticBody17"]
+transform = Transform( 0.618575, 0, 0, 0, 0.0260537, -5.12898, 0, 0.0334971, 7.14256, 0, 5.05503, -6.70403 )
+shape = SubResource( 7 )
+
+[node name="stairs2" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48733, 3.27449, 5.62134 )
+
+[node name="stairs3" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48733, 6.53221, 1.02581 )
+[connection signal="body_entered" from="ladder_area" to="Player" method="_on_ladder_area_body_entered"]
+[connection signal="body_exited" from="ladder_area" to="Player" method="_on_ladder_area_body_exited"]
+[connection signal="body_entered" from="Trampoline/Area" to="Player" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="Ball/Ball_Area" to="Player" method="_on_Ball_Area_body_entered"]
+[connection signal="body_entered" from="Trampoline2/Area" to="Player" method="_on_Area_body_entered"]

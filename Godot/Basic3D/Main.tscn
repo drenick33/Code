@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Floor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Ramp.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GoalPiece.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player.gd" type="Script" id=7]
+[ext_resource path="res://Box.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Main.gd" type="Script" id=9]
+[ext_resource path="res://Box.gd" type="Script" id=10]
+[ext_resource path="res://GoalPiece.gd" type="Script" id=11]
+[ext_resource path="res://CollisionShape.gd" type="Script" id=12]
+
+[sub_resource type="BoxShape" id=1]
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 9 )
+
+[node name="Floor" parent="." instance=ExtResource( 1 )]
+
+[node name="Walls" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0 )
+
+[node name="Walls2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0 )
+
+[node name="Walls3" parent="." instance=ExtResource( 2 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 1, 10 )
+
+[node name="Walls4" parent="." instance=ExtResource( 2 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 1, -10 )
+
+[node name="EndPlatform" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 5, -1 )
+
+[node name="Area" type="Area" parent="EndPlatform"]
+
+[node name="CollisionShape" type="CollisionShape" parent="EndPlatform/Area"]
+transform = Transform( 3.04, 0, 0, 0, 6.24, 0, 0, 0, 1, -6, 2, 10 )
+shape = SubResource( 1 )
+script = ExtResource( 12 )
+
+[node name="Ramp" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1.17303e-07, -0.124305, 0.649717, 0, 0.704967, 0.114563, -0.72, 2.02518e-08, -1.05852e-07, 18, 4, -3 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -6, 2, -6 )
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( -3.78552e-08, 0.5, -0.866025, 1, -1.41093e-07, -1.25172e-07, -1.84776e-07, -0.866025, -0.5, -5, -4.76837e-07, -3 )
+
+[node name="Ball" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 7, -1 )
+can_sleep = false
+
+[node name="Ball2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -3 )
+can_sleep = false
+
+[node name="Ball3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3 )
+can_sleep = false
+
+[node name="GoalPiece" parent="." instance=ExtResource( 6 )]
+transform = Transform( -1.04269e-07, 0, 0.64, 0, 0.64, 0, -0.64, 0, -1.04269e-07, 23, 9, 8 )
+script = ExtResource( 11 )
+
+[node name="Box" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 8, -8 )
+script = ExtResource( 10 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 375.001
+margin_top = 68.9048
+margin_right = 628.001
+margin_bottom = 148.905
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_right = 0.969
+anchor_bottom = 0.921
+margin_left = 79.2426
+margin_top = 25.7143
+margin_right = -52.9144
+margin_bottom = -26.9657
+text = "You Win!"
+align = 1
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.0975269, 0.711618, -0.695764, -0.451511, 0.591376, 0.668141, 0.886919, 0.379307, 0.263629, -14, 11, -1 )
+light_color = Color( 0.556863, 0.290196, 0.0313726, 1 )
+light_energy = 10.0
+shadow_enabled = true
+[connection signal="body_entered" from="EndPlatform/Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_entered" from="Box" to="Box" method="_on_Box_body_entered"]
