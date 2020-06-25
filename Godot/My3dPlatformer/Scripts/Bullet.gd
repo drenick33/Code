@@ -29,9 +29,9 @@ func _physics_process(delta):
 
 func collided(body):
 	if hit_something == false:
-		if body.has_method("kill"):
+		if body.has_method("damage"):
 			print("kills")
-			body.kill()
+			body.damage(5)
 			
 		if body.has_method("bullet_hit"):
 			body.bullet_hit(BULLET_DAMAGE, global_transform)

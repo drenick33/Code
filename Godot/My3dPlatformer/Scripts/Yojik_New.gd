@@ -1,6 +1,6 @@
 extends KinematicBody
 
-#@TODO Make melee attack
+#@TODO Make enemies have health bars above their heads
 const MOVE_SPEED = 12
 const JUMP_FORCE = 10
 var gravity = 0.98
@@ -35,6 +35,11 @@ var MAX_HP = 100
 var CURRENT_HP = 100
 var IS_DEAD = false
 
+
+var JUST_RECOILED = false
+var RECOIL = false
+var cooldown = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -56,10 +61,13 @@ func _process(delta):
 	if IS_DEAD == true:
 		die()
 	else:
-		if WALL_JUMPING == false:
-			walk(delta)
+		if RECOIL == true:
+			recoil()
 		else:
-			wall_jump(delta)
+			if WALL_JUMPING == false:
+				walk(delta)
+			else:
+				wall_jump(delta)
 		
 func walk(delta):
 	#Reset the direction
@@ -279,8 +287,23 @@ func Set_Health():
 	get_node("CamBase/Camera/Health").set_text("Yojik's Health: " + String(CURRENT_HP))
 
 func recoil():
-#	get_node("CollisionShape/MeshInstance/AnimationPlayer").play("recoil")
-	pass
+	#@TODO: Make recoil change depending on how you're facing
+	if JUST_RECOILED == true:
+		JUST_RECOILED = false
+		var cooldown = 0
+	
+	if cooldown < 15:
+#		velocity.x = -50
+		velocity.z = -69
+		move_and_slide(velocity, Vector3(0,1,0))
+		cooldown += 1
+	else:
+		velocity.x = 0
+		velocity.z = 0
+		cooldown = 0
+		RECOIL = false
+	
+	
 
 func collided(body):
 	if body.is_in_group("enemy"):
@@ -290,8 +313,9 @@ func collided(body):
 			if CURRENT_HP <= 0:
 				die()
 			else:
-				recoil()
+				JUST_RECOILED = true
+				RECOIL = true
 		else:
-			if body.has_method("kill"):
-				print("kills")
-				body.kill()
+			if body.has_method("damage"):
+				print("damage")
+				body.damage(5)

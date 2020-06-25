@@ -1,6 +1,7 @@
 extends KinematicBody
 
 var player = null
+var damage = 20
 
 onready var raycast = $RayCast
 # Declare member variables here. Examples:

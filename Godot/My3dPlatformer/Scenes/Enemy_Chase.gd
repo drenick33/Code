@@ -8,6 +8,9 @@ var JUMP_HEIGHT = 2000
 var vec_to_player = Vector3()
 var velocity = Vector3()
 const damage = 25
+var HP = 10
+var STUNNED = false
+var STUN_COUNT = 0
 
 onready var raycast = $RayCast
 # Declare member variables here. Examples:
@@ -18,13 +21,28 @@ onready var raycast = $RayCast
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("enemy")
+	$HP_Bar.visible = false
+	$HP_BAR_HOLDER.visible = false
 
+func damage(dmg):
+	$HP_Bar.visible = true
+	$HP_BAR_HOLDER.visible = true
+	HP -= dmg
+	if HP <= 0:
+		kill()
+	else:
+		STUNNED = true
+		$HP_Bar.scale.x = $HP_Bar.scale.x - (dmg * .1)
 
-func kill():
-	self.queue_free()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func stun():
+	if STUN_COUNT < 60:
+		STUN_COUNT +=1
+	else:
+		STUNNED = false
+		STUN_COUNT = 0
+		
+	
+func chase(delta):
 	if player == null:
 		return
 		
@@ -52,6 +70,18 @@ func _process(delta):
 #		print("enemy jump works")
 	
 	move_and_collide(velocity * MOVE_SPEED * delta)
+
+
+func kill():
+	self.queue_free()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if STUNNED == false:
+		chase(delta)
+	else:
+		stun()
+	
 
 func jump(delta):
 #	velocity.y = JUMP_HEIGHT * delta

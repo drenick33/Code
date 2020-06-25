@@ -1,0 +1,27 @@
+Page {
+    background-color: aquamarine;
+}
+
+
+StackLayout {
+    margin-left: 30;
+    margin-right: 30;
+    padding-bottom: 15;
+    padding-top: 20%;
+    background-color: orange;
+}
+Image {
+    margin-top: 5;
+    margin-bottom: 20;
+}
+Button, TextField {
+    margin-left: 16;
+    margin-right: 16;
+    margin-bottom: 10;
+    background-color: aquamarine;
+}
+.submit-button {
+    background-color: rebeccapurple;
+    color: black;
+    margin-top: 20;
+}
