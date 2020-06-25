@@ -1,2 +1,2 @@
 # Code
-Random code I used to learn
+Code I use to learn new languages
