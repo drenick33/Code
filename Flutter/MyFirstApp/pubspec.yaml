@@ -62,7 +62,7 @@ flutter:
   fonts:
     - family: Test
     - fonts:
-      - asset: fonts/Allura-Regular.ttf
+      - asset: fonts/Ubuntu-Th.ttf
   
   #
   # For details regarding fonts from package dependencies,
