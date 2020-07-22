@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:EnglishReader/services/word.dart';
+import 'package:EnglishReader/widgets/sentence.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -7,12 +8,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Word test;
+  List<Word> sent = [
+    Word(phrase: "I love Sasha! ", isCurrent: true),
+    Word(phrase: "Sasha is sexy! ", isCurrent: false),
+  ];
   Color highlight = Colors.blue;
+  Color normal = Colors.black;
 
   void initState() {
     super.initState();
-    test = Word(phrase: "I love Sasha", isCurrent: false);
+    sent[0] = Word(phrase: "I love Sasha!", isCurrent: true);
+    sent[0].makeCurrent();
   }
 
   @override
@@ -23,16 +29,13 @@ class _HomeState extends State<Home> {
         title: Text("English Reader"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Text(
-            test.phrase,
-            style: TextStyle(
-              fontSize: 24,
-              color: highlight,
-            ),
-          )
-        ],
+      body: Row(
+        children: sent
+            .map((word) => Sentence(
+                  //@todo Fix this thing
+                  word: word,
+                ))
+            .toList(),
       ),
     );
   }
