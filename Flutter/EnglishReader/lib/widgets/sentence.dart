@@ -8,11 +8,14 @@ class Sentence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      word.phrase,
-      style: TextStyle(
-        fontSize: 24,
-        color: word.col,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+      child: Text(
+        word.phrase,
+        style: TextStyle(
+          fontSize: 24,
+          color: word.col,
+        ),
       ),
     );
   }
