@@ -11,6 +11,11 @@ class Word {
     this.isCurrent = true;
     this.col = Colors.blue;
   }
+
+  void makeNotCurrent() {
+    this.isCurrent = false;
+    this.col = Colors.black;
+  }
 }
 
 //@TODO add functions to change is current

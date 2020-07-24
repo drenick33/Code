@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:EnglishReader/services/word.dart';
 import 'package:EnglishReader/widgets/sentence.dart';
@@ -9,16 +11,37 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Word> sent = [
-    Word(phrase: "I love Sasha! ", isCurrent: true),
+    Word(phrase: "I love Sasha! ", isCurrent: false),
     Word(phrase: "Sasha is sexy! ", isCurrent: false),
   ];
-  Color highlight = Colors.blue;
-  Color normal = Colors.black;
 
   void initState() {
     super.initState();
-    sent[0] = Word(phrase: "I love Sasha!", isCurrent: true);
-    sent[0].makeCurrent();
+    var index = 0;
+    Map<int, Word> map = sent.asMap();
+    print(map[0]);
+    map[index].makeCurrent();
+
+    var _timer = new Timer(const Duration(seconds: 3), () {
+      startReading(map, index);
+    });
+  }
+
+  void startReading(map, index) {
+    var _timer = new Timer(const Duration(seconds: 2), () {
+      startReading(map, index);
+    });
+    try {
+      map[index].makeNotCurrent();
+      index += 1;
+      setState(() {
+        map[index].makeCurrent();
+      });
+    } catch (e) {
+      print("Reading Failed; error:");
+      print("$e");
+      _timer.cancel();
+    }
   }
 
   @override
