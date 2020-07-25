@@ -15,13 +15,13 @@ const Country = styled.div`
   font-size: 1.1rem;
 `;
 
-const Location = (props) => {
-    return (
-      <Container>
-        <City> Moscow</City>
-        <Country>RU</Country>
-      </Container>
-    );
-}
- 
+const Location = ({ city, country }) => {
+  return (
+    <Container>
+      <City>{city}</City>
+      <Country>{country}</Country>
+    </Container>
+  );
+};
+
 export default Location;
