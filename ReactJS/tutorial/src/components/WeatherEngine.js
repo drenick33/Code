@@ -32,10 +32,10 @@ const WeatherEngine = ({ location }) => {
     setLoading(false);
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    getWeather(query);
-  };
+  //   const handleSearch = (e) => {
+  //     e.preventDefault();
+  //     getWeather(query);
+  //   };
 
   useEffect(() => {
     getWeather(location);
