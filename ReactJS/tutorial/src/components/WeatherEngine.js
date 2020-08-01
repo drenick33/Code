@@ -42,6 +42,7 @@ const WeatherEngine = ({ location }) => {
   }, [location]);
 
   return (
+    //Try to rewrite, try to avoid nested operators.
     <div>
       {!loading && !error ? (
         <div>
@@ -54,7 +55,7 @@ const WeatherEngine = ({ location }) => {
           />
         </div>
       ) : loading ? (
-        <div style={{ color: "black" }}>Loading</div>
+        <div style={{ color: "black" }}>Loading</div> //rewrite with classnames and css
       ) : !loading && error ? (
         <div style={{ color: "black" }}>
           Error <br />
