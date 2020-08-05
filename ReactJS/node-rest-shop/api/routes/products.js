@@ -122,15 +122,15 @@ router.get('/:ProductID', (req, res, next) => {
 
 router.patch('/:ProductID', (req, res, next) => {
   const id = req.params.ProductID;
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
-  }
+  // const updateOps = {};
+  // for (const ops of req.body) {
+  //   updateOps[ops.propName] = ops.value;
+  // }
   product
     .update(
       { _id: id },
       {
-        $set: updateOps,
+        $set: req.body,
       }
     )
     .exec()

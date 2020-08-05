@@ -8,6 +8,8 @@ function App() {
   const [price, setPrice] = useState('');
   const [newPrice, setNewPrice] = useState('');
   const [newName, setNewName] = useState('');
+  const [editItem, setEditItem] = useState({});
+  const [delItem, setDelItem] = useState({});
   //const [_id, set_ID] = useState('');
   useEffect(() => {
     getList();
@@ -98,16 +100,67 @@ function App() {
       });
   }
 
+  function edit(item) {
+    setEditItem(item);
+  }
+
+  function updateName(e) {
+    setEditItem({ ...editItem, name: e.target.value });
+  }
+
+  function editCancel() {
+    setEditItem({});
+  }
+
+  function editSave() {
+    axios({
+      method: 'PATCH',
+      url: 'http://localhost:6001/products/' + editItem._id,
+      data: editItem,
+    })
+      .then((res) => {
+        getList();
+        console.log(editItem._id);
+        console.log('Patched');
+        setEditItem({});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function confirmDelete(item) {
+    setDelItem(item);
+  }
+
+  function cancelDelete() {
+    setDelItem({});
+  }
+
   return (
     <div className="App">
       {products.map((el) => (
         <div key={el._id}>
           <ol>
-            {el.name}:{' $' + el.price}
-            <form>
-              <button onClick={() => patch(el._id)}>Edit</button>
-              <button onClick={() => remove(el._id)}>Delete</button>
-            </form>
+            {delItem._id === el._id ? (
+              <div>
+                <button onClick={() => remove(el._id)}>Confirm</button>
+                <button onClick={cancelDelete}>Cancel</button>
+              </div>
+            ) : null}
+            {editItem._id === el._id ? (
+              <div>
+                <input onChange={updateName} value={editItem.name} />
+                <button onClick={editSave}>Save</button>
+                <button onClick={editCancel}>Cancel</button>
+              </div>
+            ) : (
+              <span>
+                {el.name}:{' $' + el.price}{' '}
+                <button onClick={() => edit(el)}>Edit</button>
+                <button onClick={() => confirmDelete(el)}>Delete</button>
+              </span>
+            )}
           </ol>
         </div>
       ))}
@@ -125,18 +178,6 @@ function App() {
         <button type="submit" onClick={post}>
           Submit
         </button>
-      </form>
-      <form>
-        <input
-          placeholder="Change Product Name"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-        ></input>
-        <input
-          placeholder="Change Product Price"
-          value={newPrice}
-          onChange={(e) => setNewPrice(e.target.value)}
-        ></input>
       </form>
     </div>
   );

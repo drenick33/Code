@@ -1,0 +1,21 @@
+.item {
+  margin: 5px;
+  align-content: stretch;
+}
+
+.cross {
+  text-decoration: line-through;
+}
+
+.padded {
+  padding-top: 16rem;
+}
+
+.big-checkbox {
+  transform: scale(1.25);
+  -webkit-transform: scale(1.25);
+}
+
+html body {
+  background-color: rgba(240, 240, 240, 1);
+}

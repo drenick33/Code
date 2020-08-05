@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
+import { connect } from 'react-redux';
+import Home from './Home';
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [toDos, setToDos] = useState([
     {
-      title: "Learn React",
+      title: 'Learn React',
       done: false,
       id: 1,
     },
     {
-      title: "Learn CSS",
+      title: 'Learn CSS',
       done: true,
       id: 2,
     },
   ]);
 
   const submit = (e) => {
-    console.log("Works");
+    console.log('Works');
     e.preventDefault();
     setToDos([
       ...toDos,
@@ -27,7 +29,7 @@ function App() {
         id: Math.random(),
       },
     ]);
-    setInputValue("");
+    setInputValue('');
   };
 
   const inputOnChange = (e) => {
@@ -50,13 +52,14 @@ function App() {
 
   return (
     <div className="App">
+      <Home></Home>
       <form onSubmit={submit}>
         <input type="text" value={inputValue} onChange={inputOnChange}></input>
         <button type="submit">Add</button>
       </form>
       {toDos.map((el) => (
         <li>
-          {el.title} {el.done ? "Finished" : "Unfinished"}
+          {el.title} {el.done ? 'Finished' : 'Unfinished'}
           <button onClick={() => changeStatus(el.id)}>Done</button>
         </li>
       ))}
@@ -64,4 +67,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    toDos: state.toDos,
+  };
+};
+
+export default connect(mapStateToProps)(App);
