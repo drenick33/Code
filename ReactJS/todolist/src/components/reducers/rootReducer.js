@@ -55,6 +55,14 @@ const rootReducer = (state = initState, action) => {
           _id: Math.random(),
         }),
       };
+    case 'GET_TASKS':
+      console.log('in reducer');
+      console.log(action.payload);
+
+      return {
+        ...state,
+        toDos: action.payload,
+      };
     default:
       break;
   }

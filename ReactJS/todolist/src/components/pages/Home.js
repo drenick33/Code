@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Calendar } from 'react-bootstrap-icons';
 import './Home.css';
+import axios from 'axios';
 
 class Home extends Component {
   constructor(props) {
@@ -9,10 +10,36 @@ class Home extends Component {
     this.state = { inputValue: '' };
   }
 
+  componentDidMount() {
+    this.getList();
+  }
+
+  // componentDidUpdate() {
+  //   this.getList();
+  // }
+
   state = {
     inputValue: '',
     canDelete: false,
     canAdd: false,
+  };
+
+  getList = () => {
+    let curTasks = {};
+    axios({
+      method: 'GET',
+      url: 'http://localhost:6001/todos',
+    })
+      .then((res) => {
+        curTasks = res.data.todos;
+        console.log(curTasks);
+        console.log('entering getTasks');
+        this.props.getTasks(curTasks);
+      })
+      .catch((err) => {
+        console.log('ran error');
+        console.log(err);
+      });
   };
 
   inputOnChange = (e) => {
@@ -53,6 +80,7 @@ class Home extends Component {
 
   render() {
     const Task = this.props.toDos;
+    console.log(Task);
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark shadow">
@@ -129,6 +157,7 @@ class Home extends Component {
                 <div className="item"></div>
                 <div>
                   <button onClick={this.mayDelete}>- Delete Task</button>
+                  <button onClick={this.getList}>REMOVE ME</button>
                 </div>
               </div>
             </div>
@@ -161,6 +190,11 @@ const mapDispatchToProps = (dispatch) => {
     addTask: (title) => {
       console.log(title);
       dispatch({ type: 'ADD_TASK', title: title });
+    },
+    getTasks: (curTasks) => {
+      console.log('getTasks');
+      console.log(curTasks);
+      dispatch({ type: 'GET_TASKS', payload: curTasks });
     },
   };
 };
