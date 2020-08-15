@@ -3,16 +3,19 @@ import ReactDOM from 'react-dom';
 //import './index.css';
 //import App from './components/pages/App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './components/reducers/rootReducer';
 import Home from './components/pages/Home';
 import 'bootstrap/dist/css/bootstrap.css';
+import thunk from 'redux-thunk';
+
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk)
 );
 
 ReactDOM.render(

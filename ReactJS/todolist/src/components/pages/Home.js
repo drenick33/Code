@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Calendar } from 'react-bootstrap-icons';
 import './Home.css';
 import axios from 'axios';
+import '../TaskList';
+import TaskList from '../TaskList';
+import TaskForum from '../TaskForum';
+import Loading from '../Loading';
+import Navbar from '../Navbar';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { inputValue: '' };
+    this.state = {
+      inputValue: '',
+      isLoading: true,
+    };
   }
 
   componentDidMount() {
@@ -18,23 +25,20 @@ class Home extends Component {
   //   this.getList();
   // }
 
-  state = {
-    inputValue: '',
-    canDelete: false,
-    canAdd: false,
-  };
-
   getList = () => {
+    console.log('running getList');
+    this.setState({ isLoading: true });
     let curTasks = {};
     axios({
       method: 'GET',
       url: 'http://localhost:6001/todos',
     })
-      .then((res) => {
+      .then(async (res) => {
         curTasks = res.data.todos;
         console.log(curTasks);
         console.log('entering getTasks');
         this.props.getTasks(curTasks);
+        this.setState({ isLoading: false });
       })
       .catch((err) => {
         console.log('ran error');
@@ -48,13 +52,18 @@ class Home extends Component {
   };
   //called by delete
   removeTask = (_id) => {
-    //console.log(_id);
-    this.props.deleteTask(_id);
+    console.log('running removeTask');
     this.setState({ canDelete: false });
+    this.props.deleteTask(_id).then(() => this.getList());
+    //this.getList();
+
+    //this.getList();
   };
 
   completeTask = (_id, done) => {
     console.log('finish');
+    console.log('the done value is: ' + done);
+    console.log(!done);
     this.props.finishTask(_id, done);
   };
 
@@ -79,87 +88,20 @@ class Home extends Component {
   };
 
   render() {
-    const Task = this.props.toDos;
-    console.log(Task);
     return (
       <div>
-        <nav className="navbar navbar-dark bg-dark shadow">
-          <Calendar color="white" size="32px" className=""></Calendar>
-        </nav>
+        <Navbar></Navbar>
         <div className="container">
           <div class="row justify-content-initial">
             <div class="col-7">
-              <h2 className="pt-3">To Do List:</h2>
-              {Task.map((el) => (
-                <div key={el._id}>
-                  <div className="container bg-warning shadow my-4">
-                    <div className="row-10">
-                      {el.done ? (
-                        <div className="pt-5">
-                          <input
-                            type="checkbox"
-                            className="big-checkbox"
-                            onClick={() => this.completeTask(el._id, el.done)}
-                          />
-                          <label className="cross pb-4 pl-5 font-weight-bolder">
-                            {el.title}
-                          </label>
-                        </div>
-                      ) : (
-                        <div className="pt-5">
-                          <input
-                            type="checkbox"
-                            className="big-checkbox"
-                            onClick={() => this.completeTask(el._id, el.done)}
-                          />
-                          <label className="pb-4 pl-5 font-weight-bolder">
-                            {el.title}
-                          </label>
-                        </div>
-                      )}
-                      {this.state.canDelete ? (
-                        <button
-                          className="item bg-light"
-                          onClick={() => this.removeTask(el._id)}
-                        >
-                          Delete
-                        </button>
-                      ) : (
-                        <button className="item invisible">Delete</button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {this.state.isLoading ? (
+                <Loading></Loading>
+              ) : (
+                <TaskList></TaskList>
+              )}
             </div>
             <div className="col-5 padded">
-              <div className="container pb-5">
-                {this.state.canAdd ? (
-                  <div>
-                    <input
-                      type="text"
-                      autoFocus
-                      value={this.state.inputValue}
-                      onChange={this.inputOnChange}
-                    ></input>
-                    <button onClick={() => this.submit(this.state.inputValue)}>
-                      + Add
-                    </button>
-                    <button onClick={() => this.mayAdd()}>Cancel</button>
-                  </div>
-                ) : (
-                  <div>
-                    <button onClick={() => this.mayAdd()}>+ Create Task</button>
-                    <input type="text" className="invisible"></input>
-                  </div>
-                )}
-
-                <div className="item"></div>
-                <div>
-                  <button onClick={this.mayDelete}>- Delete Task</button>
-                  <button onClick={this.getList}>REMOVE ME</button>
-                </div>
-              </div>
+              <TaskForum></TaskForum>
             </div>
           </div>
         </div>
@@ -173,6 +115,7 @@ const mapStateToProps = (state) => {
   //add ToDos from redux to props
   return {
     toDos: state.toDos,
+    sharedState: state.sharedState,
   };
 };
 
