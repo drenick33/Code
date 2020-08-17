@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { addTask } from './actions';
+import { addTask } from '../actions/todoActions';
 
 class TaskForum extends PureComponent {
   constructor(props) {
@@ -13,7 +13,6 @@ class TaskForum extends PureComponent {
   };
 
   submit = (title) => {
-    console.log(title);
     if (title) {
       //prevent empty strings
       this.props.addTask(title);

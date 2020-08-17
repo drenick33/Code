@@ -1,5 +1,7 @@
 const initState = {
   toDos: [],
+  boards: [],
+  curBoard: [],
   sharedState: {
     inputValue: '',
     canDelete: false,
@@ -11,6 +13,25 @@ const initState = {
 const rootReducer = (state = initState, action) => {
   console.log(action);
   switch (action.type) {
+    //BOARDS SECTION
+    //@TODO LOOK INTO COMBINE REDUCERS
+
+    case 'GET_BOARDS':
+      console.log('in GET_BOARDS');
+      console.log('Payload is: ', action.payload);
+      return {
+        ...state,
+        boards: action.payload,
+      };
+
+    case 'GET_CUR_BOARD':
+      console.log('in GET_CUR_BOARDS');
+      console.log('Payload is: ', action.payload);
+      return {
+        ...state,
+        board: action.payload,
+      };
+
     case 'ADD_TASK':
       return {
         ...state,

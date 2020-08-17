@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 //import './index.css';
 //import App from './components/pages/App';
 import * as serviceWorker from './serviceWorker';
+
+//CSS Decorations through bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+
+//Redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './components/reducers/rootReducer';
-import Home from './components/pages/Home';
-import 'bootstrap/dist/css/bootstrap.css';
 import thunk from 'redux-thunk';
+import rootReducer from './components/reducers/rootReducer';
+
+//Pages&Components to Route to
+import Home from './components/pages/Home';
+import Board from './components/pages/Board';
 
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
@@ -21,7 +29,10 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Home />
+      <BrowserRouter>
+        <Route exact path="/" component={Home}></Route>
+        <Route path="/:board_id" component={Board}></Route>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

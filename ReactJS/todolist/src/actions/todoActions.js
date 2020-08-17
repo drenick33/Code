@@ -27,7 +27,7 @@ export function getTasks() {
       url: 'http://localhost:6001/todos/',
     })
       .then((res) => {
-        dispatch({ type: 'GET_TASKS', payload: res.data.todos });
+        dispatch({ type: 'GET_TASKS', payload: res.data });
       })
       .catch((err) => {
         console.log(err);

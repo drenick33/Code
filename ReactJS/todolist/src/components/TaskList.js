@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteTask, finishTask, editTask } from './actions';
+import { deleteTask, finishTask, editTask } from '../actions/todoActions';
 import './TaskList.css';
 import { ArrowDownCircleFill, ArrowUpCircleFill } from 'react-bootstrap-icons';
 
@@ -24,7 +24,6 @@ class TaskList extends Component {
 
   makeEdit(_id) {
     console.log('runs makeEdit');
-    console.log('id is: ' + _id);
     this.props.letEdit(_id);
   }
 
@@ -48,7 +47,6 @@ class TaskList extends Component {
 
   render() {
     const Task = this.props.toDos;
-    console.log('canDelete is: ' + this.props.sharedState.canDelete);
     return (
       <div>
         <h2 className="pt-3">To Do List:</h2>

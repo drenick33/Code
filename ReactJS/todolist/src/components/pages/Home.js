@@ -34,7 +34,7 @@ class Home extends Component {
       url: 'http://localhost:6001/todos',
     })
       .then(async (res) => {
-        curTasks = res.data.todos;
+        curTasks = res.data;
         console.log(curTasks);
         console.log('entering getTasks');
         this.props.getTasks(curTasks);
