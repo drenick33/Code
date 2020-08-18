@@ -4,10 +4,13 @@ export function getBoards() {
   console.log('starting getBoards');
   let curBoards = {};
   return (dispatch) =>
-    axios({
-      method: 'GET',
-      url: 'http://localhost:6001/boards/',
-    })
+    axios(
+      {
+        method: 'GET',
+        url: 'http://localhost:6001/boards/',
+      },
+      console.log('in axios')
+    )
       .then(async (res) => {
         curBoards = res.data;
         console.log(curBoards);
@@ -19,9 +22,9 @@ export function getBoards() {
       });
 }
 
+//Why is it not running the network request?
 export function getCurBoard(_id) {
   console.log('starting getCurBoards');
-  let curBoards = {};
   return (dispatch) =>
     axios({
       method: 'GET',
@@ -29,12 +32,31 @@ export function getCurBoard(_id) {
     })
       .then(async (res) => {
         console.log('getCurBoard: ' + res.data);
-        curBoards = res.data;
+        const curBoards = res.data;
         console.log(curBoards);
         dispatch({ type: 'GET_CUR_BOARD', payload: curBoards });
       })
       .catch((err) => {
         console.log('didnt work');
+        console.log(err);
+      });
+}
+
+export function createBoard(title) {
+  console.log('starting createBoard');
+
+  return (dispatch) =>
+    axios({
+      method: 'POST',
+      url: 'http://localhost:6001/boards/',
+      data: {
+        title,
+      },
+    })
+      .then(() => {
+        dispatch(getBoards());
+      })
+      .catch((err) => {
         console.log(err);
       });
 }

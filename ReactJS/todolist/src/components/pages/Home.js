@@ -4,7 +4,7 @@ import './Home.css';
 import axios from 'axios';
 import '../TaskList';
 import TaskList from '../TaskList';
-import TaskForum from '../TaskForum';
+import TaskForm from '../TaskForm';
 import Loading from '../Loading';
 import Navbar from '../Navbar';
 
@@ -101,7 +101,7 @@ class Home extends Component {
               )}
             </div>
             <div className="col-5 padded">
-              <TaskForum></TaskForum>
+              <TaskForm></TaskForm>
             </div>
           </div>
         </div>

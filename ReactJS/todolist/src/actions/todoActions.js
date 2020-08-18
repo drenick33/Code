@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //asynchrious code in actions, not reducer
 
-export function addTask(todoName) {
+export function addTask(todoName, todoBoard) {
   return (dispatch) =>
     axios({
       method: 'POST',
@@ -10,6 +10,7 @@ export function addTask(todoName) {
       data: {
         title: todoName,
         done: false,
+        board: todoBoard,
       },
     })
       .then(() => {

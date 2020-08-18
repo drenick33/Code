@@ -9,6 +9,7 @@ const router = Router();
 
 router.post('/', boardCreate);
 router.get('/', boardGet);
+//change to boardId
 router.delete('/:BoardID', boardDelete);
 router.get('/:BoardID', boardGetOne);
 router.patch('/:BoardID', boardPatch);

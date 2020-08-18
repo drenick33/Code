@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getBoards } from '../actions/boardActions';
 import axios from 'axios';
+import './Navbar.css';
 
 class Navbar extends Component {
   componentDidMount() {
     getBoards();
     this.getList();
   }
+
+  mayDelete = () => {
+    this.props.letDelete();
+  };
 
   getList = () => {
     console.log('running getList for Boards');
@@ -34,7 +39,7 @@ class Navbar extends Component {
     console.log('info is: ', this.props.boards);
     return (
       <div>
-        <nav className="navbar navbar-dark bg-dark shadow">
+        <nav className="navbar navbar-dark navi bg-dark shadow">
           <Link to="/">
             <Calendar color="white" size="32px" className=""></Calendar>
           </Link>
@@ -45,7 +50,7 @@ class Navbar extends Component {
               </Link>
             </div>
           ))}
-          <button onClick={() => this.getList()}>Refresh</button>
+          <button onClick={() => this.mayDelete()}>Delete</button>
         </nav>
       </div>
     );
@@ -55,6 +60,7 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
   //add ToDos from redux to props
   return {
+    sharedState: state.sharedState,
     boards: state.boards,
   };
 };
@@ -65,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
       console.log('getBoard');
       console.log(curTasks);
       dispatch({ type: 'GET_BOARDS', payload: curTasks });
+    },
+    letDelete: () => {
+      dispatch({ type: 'CHANGE_CANDELETE' });
     },
   };
 };

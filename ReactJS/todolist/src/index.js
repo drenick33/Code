@@ -17,6 +17,8 @@ import rootReducer from './components/reducers/rootReducer';
 //Pages&Components to Route to
 import Home from './components/pages/Home';
 import Board from './components/pages/Board';
+import TaskForm from './components/TaskForm';
+import BoardForm from './components/BoardForm';
 
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
@@ -32,6 +34,8 @@ ReactDOM.render(
       <BrowserRouter>
         <Route exact path="/" component={Home}></Route>
         <Route path="/:board_id" component={Board}></Route>
+        <Route path="/taskform" component={TaskForm}></Route>
+        <Route path="/boardform" component={BoardForm}></Route>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

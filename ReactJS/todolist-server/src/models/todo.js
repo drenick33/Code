@@ -5,6 +5,12 @@ const todoSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId, //Create ID for object
   title: { type: String, require: true },
   done: { type: Number, require: true },
+  status: {
+    type: String,
+    require: true,
+    enum: ['todo', 'progress', 'review', 'done'],
+  },
+  board: { type: mongoose.Schema.Types.ObjectId, ref: 'Board', required: true },
 });
 
 //What module to use and export. 1st argument is internal name
