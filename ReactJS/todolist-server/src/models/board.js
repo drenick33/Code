@@ -15,5 +15,5 @@ const boardSchema = mongoose.Schema({
 });
 
 //What module to use and export. 1st argument is internal name
-//2ns argument in the schema used (for constructor?)
+//2nd argument in the schema used (for constructor?)
 module.exports = mongoose.model('Board', boardSchema);

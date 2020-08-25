@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { createBoard } from '../actions/boardActions';
+import { createBoard } from '../../actions/boardActions';
 
 class BoardForm extends PureComponent {
   constructor(props) {

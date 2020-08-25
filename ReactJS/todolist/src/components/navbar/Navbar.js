@@ -2,7 +2,9 @@ import { Calendar } from 'react-bootstrap-icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getBoards } from '../actions/boardActions';
+import { getBoards } from '../../actions/boardActions';
+import DropDownOptions from './DropDownOptions';
+import BoardSelect from './BoardSelect';
 import axios from 'axios';
 import './Navbar.css';
 
@@ -43,14 +45,9 @@ class Navbar extends Component {
           <Link to="/">
             <Calendar color="white" size="32px" className=""></Calendar>
           </Link>
-          {this.props.boards.map((el) => (
-            <div key={el._id}>
-              <Link to={'/' + el._id}>
-                <span>{el.title}</span>
-              </Link>
-            </div>
-          ))}
           <button onClick={() => this.mayDelete()}>Delete</button>
+          <BoardSelect boards={this.props.boards}></BoardSelect>
+          <DropDownOptions></DropDownOptions>
         </nav>
       </div>
     );

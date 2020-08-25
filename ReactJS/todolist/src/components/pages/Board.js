@@ -1,81 +1,95 @@
-import React, { Component } from 'react';
-import NavBar from '../Navbar';
+import React, { useEffect } from 'react';
+import NavBar from '../navbar/Navbar';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
-//import { getBoards } from '../../actions/boardActions';
 import { getCurBoard } from '../../actions/boardActions';
 
-class Board extends Component {
-  state = {
-    id: null,
-  };
+const Board = (props) => {
+  useEffect(() => {
+    //useEffect similar to componentDidMount
+    console.log('useEffect props are: ', props.match.params);
+    props.getThisBoard(props.match.params.board_id);
+    return () => {};
+  }, [props.match.params.board_id]); //watcher, changes
+  return (
+    <div>
+      <NavBar></NavBar>
+      <h4 className="pt-5">{props.match.params.board_id}</h4>
+      <h4>{props.curBoard.title}</h4>
+    </div>
+  );
+};
 
-  componentDidMount() {
-    this.setState({
-      id: this.props.match.params.board_id,
-    });
-    this.setState({ id: this.props.match.params.board_id });
+// class Board extends Component {
 
-    console.log(this.props.match.params.board_id);
-    console.log(this.state);
-    this.getBoard();
-    //this.getList();
-  }
+//   componentDidMount() {
+//     getCurBoard(this.props.match.params.board_id);
+//     this.getCur();
+//   }
 
-  getBoard = (_id) => {
-    getCurBoard(this.state.id);
-  };
-
-  getList = () => {
-    console.log('running getList for Boards');
-    let curTasks = {};
-    axios({
-      method: 'GET',
-      url: 'http://localhost:6001/boards/' + this.props.match.params.board_id,
-    })
-      .then(async (res) => {
-        curTasks = res.data;
-        console.log(curTasks);
-        console.log('entering getBoard');
-        this.props.getBoard(curTasks);
-      })
-      .catch((err) => {
-        console.log('ran error');
-        console.log(err);
-      });
-  };
-
-  render() {
-    const id = this.state.id;
-    return (
-      <div>
-        <NavBar></NavBar>
-        <div className="container">
-          <h4>{id}</h4>
-        </div>
-      </div>
-    );
-  }
-}
-
-// const mapStateToProps = (state) => {
-//   //add ToDos from redux to props
-//   return {
-//     boards: state.boards,
+//   getCur = () => {
+//     console.log('getting current board from BoardNEW');
+//     let curTask = {};
+//     axios({
+//       method: 'GET',
+//       url: 'http://localhost:6001/boards/' + this.props.match.params.board_id,
+//     })
+//       .then(async (res) => {
+//         curTask = res.data;
+//         console.log('The result of getCur is: ', curTask);
+//         console.log('The res.data was: ', res.data);
+//         this.props.getThisBoard(curTask);
+//       })
+//       .catch((err) => {
+//         console.log('ran error');
+//         console.log(err);
+//       });
 //   };
-// };
+
+//   render() {
+//     // const id = this.props.match.params.board_id;
+//     const board = this.props.curBoard;
+//     let Tasknum = 0;
+//     if (board.todos) {
+//       Tasknum = board.todos.length;
+//     }
+//     console.log('board.todos is: ', board.todos);
+//     return (
+//       <div>
+//         <NavBar></NavBar>
+//         <div className="container bg-light">
+//           <h4 className="mb-4">id</h4>
+//           <h4>{board.title}</h4>
+//           {Tasknum > 0 ? (
+//             <div>
+//               <h4>TRUE</h4>
+//             </div>
+//           ) : (
+//             <h4>No Tasks in this board</h4>
+//           )}
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+const mapStateToProps = (state) => {
+  //add ToDos from redux to props
+  return {
+    curBoard: state.curBoard,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBoard: (curTasks) => {
-      console.log('getBoard');
-      console.log(curTasks);
-      dispatch({ type: 'GET_BOARDS', payload: curTasks });
+    getThisBoard: (curBoard) => {
+      console.log('in dispatch to GET_CUR_BOARDS');
+      console.log(curBoard);
+      dispatch(getCurBoard(curBoard));
+      //dispatch({ type: 'GET_CUR_BOARD', payload: curBoard });
     },
   };
 };
 
-// function Navbar() {
-
-export default connect(mapDispatchToProps)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

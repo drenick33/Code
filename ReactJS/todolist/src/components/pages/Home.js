@@ -4,9 +4,9 @@ import './Home.css';
 import axios from 'axios';
 import '../TaskList';
 import TaskList from '../TaskList';
-import TaskForm from '../TaskForm';
+import TaskForm from '../forms/TaskForm';
 import Loading from '../Loading';
-import Navbar from '../Navbar';
+import Navbar from '../navbar/Navbar';
 
 class Home extends Component {
   constructor(props) {

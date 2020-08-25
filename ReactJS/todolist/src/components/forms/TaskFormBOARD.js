@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { addTask } from '../actions/todoActions';
-import { getBoards } from '../actions/boardActions';
+import { addTask } from '../../actions/todoActions';
+import { getBoards } from '../../actions/boardActions';
 import { get } from 'lodash';
 
 class TaskForm extends PureComponent {
@@ -24,9 +24,12 @@ class TaskForm extends PureComponent {
   };
 
   submit = () => {
-    if (this.state.inputValue && this.state.boardValue) {
+    if (this.state.inputValue) {
       //prevent empty strings
-      this.props.addTask(this.state.inputValue, this.state.boardValue);
+      this.props.addTask(
+        this.state.inputValue,
+        this.props.match.params.board_id
+      );
     }
     this.setState({
       inputValue: '',
@@ -46,6 +49,7 @@ class TaskForm extends PureComponent {
     console.log('This.props.boards is: ', this.props.boards);
     return (
       <div className="container pb-5">
+        <h4 className="pt-4">Add New Task</h4>
         <div>
           <input
             type="text"
@@ -53,15 +57,6 @@ class TaskForm extends PureComponent {
             value={this.state.inputValue}
             onChange={this.inputOnChange}
           ></input>
-          <select onChange={this.boardOnChange}>
-            {get(this.props, 'boards', []).map((
-              el //get is from lodash, use empty array if undefined
-            ) => (
-              <option key={el._id} value={el._id}>
-                {el.title}
-              </option>
-            ))}
-          </select>
           <button onClick={this.submit}>+ Add</button>
         </div>
       </div>

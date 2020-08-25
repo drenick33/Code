@@ -26,10 +26,10 @@ const rootReducer = (state = initState, action) => {
 
     case 'GET_CUR_BOARD':
       console.log('in GET_CUR_BOARDS');
-      console.log('Payload is: ', action.payload);
+      console.log('curBoard will be: ', action.payload);
       return {
         ...state,
-        board: action.payload,
+        curBoard: action.payload,
       };
 
     case 'ADD_TASK':

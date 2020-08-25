@@ -20,6 +20,7 @@ const todosCreate = (req, res, next) => {
           title: result.title,
           done: result.done,
           _id: result._id,
+          priority: 0,
           board: result.board,
           status: 'todo',
           request: {

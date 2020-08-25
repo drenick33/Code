@@ -10,6 +10,7 @@ const todoSchema = mongoose.Schema({
     require: true,
     enum: ['todo', 'progress', 'review', 'done'],
   },
+  priority: { type: Number, require: true },
   board: { type: mongoose.Schema.Types.ObjectId, ref: 'Board', required: true },
 });
 

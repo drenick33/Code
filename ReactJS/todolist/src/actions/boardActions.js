@@ -24,7 +24,7 @@ export function getBoards() {
 
 //Why is it not running the network request?
 export function getCurBoard(_id) {
-  console.log('starting getCurBoards');
+  console.log('starting getCurBoards with id: ', _id);
   return (dispatch) =>
     axios({
       method: 'GET',
@@ -59,4 +59,13 @@ export function createBoard(title) {
       .catch((err) => {
         console.log(err);
       });
+}
+
+export function addTaskToBoard(_id, task) {
+  return (dispatch) =>
+    axios({
+      method: 'PATCH',
+      url: 'http://localhost:6001/boards/' + _id,
+      data: {},
+    });
 }
