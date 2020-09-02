@@ -1,13 +1,20 @@
-import React from "react";
+import React from 'react';
 
-const ProjectSummary = () => {
+const ProjectSummary = ({ projects }) => {
   return (
-    <div className="card z-depth=0 project-summary">
-      <div className="card-content grey-text text-darken-3">
-        <span className="card-title">Project Title</span>
-        <p>Posted by Dan</p>
-        <p className="grey-text">January 27 2020, 7am</p>
-      </div>
+    <div>
+      {projects &&
+        projects.map((el) => (
+          <div key={el.id} className="card z-depth=0 project-summary">
+            <div key={el.id} className="card-content grey-text text-darken-3">
+              <div key={el.id}>
+                <span>{el.title}</span>
+                <p>Posted by Dan</p>
+                <p className="grey-text">January 27 2020, 7am</p>
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };

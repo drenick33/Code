@@ -1,13 +1,10 @@
-import React from "react";
-import ProjectSummary from "./ProjectSummary";
+import React from 'react';
+import ProjectSummary from './ProjectSummary';
 
-const ProjectList = () => {
+const ProjectList = (props) => {
   return (
     <div className="project-list section">
-      <ProjectSummary></ProjectSummary>
-      <ProjectSummary></ProjectSummary>
-      <ProjectSummary></ProjectSummary>
-      <ProjectSummary></ProjectSummary>
+      <ProjectSummary projects={props.projects}></ProjectSummary>
     </div>
   );
 };
