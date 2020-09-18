@@ -20,3 +20,9 @@ Dependencies:
 python3,
 Beautiful Soup,
 xlsxwriter (for excel)
+requests
+
+run to install dependencies
+pip install bs4
+pip install XlsxWriter
+pip install requests
