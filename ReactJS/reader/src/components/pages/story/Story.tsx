@@ -4,6 +4,8 @@
 
 import React, { useState, useEffect } from 'react';
 import StoryTrans from './StoryTrans';
+import StoryWords from './StoryWords';
+import StorySentences from './StorySentences';
 import { Divider, Pagination, Menu } from 'antd';
 import { PlayCircleTwoTone } from '@ant-design/icons';
 
@@ -12,19 +14,24 @@ const Story = (props: any) => {
   let [elements, setElements] = useState(['']); //what goes in the current page
   let [pageCount, setPageCount] = useState(1); //total pages
   let [perPage] = useState(100);
+  let [isWord, setIsWord] = useState(true);
+  let [sentFocus, setSentFocus] = useState(false);
 
   let story: string =
     'Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint.';
   let words: string[] = story.split(' ');
+  let sentences: string[] = story
+    .replace(/([.?!])\s*(?=[A-Z])/g, '$1|')
+    .split('|');
 
   useEffect(() => {
     recievePageData();
     setElementsForCurPage(1);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const recievePageData = () => {
     let story: string =
-      'Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint.';
+      'Reprehenderit assumenda veniam officiis dignissimos, aborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint.';
     let words: string[] = story.split(' ');
     setPageCount(Math.ceil(words.length / perPage));
   };
@@ -37,78 +44,21 @@ const Story = (props: any) => {
   };
 
   const handlePageChange = (page: any) => {
-    // console.log('the page is: ', page)
-    // console.log('old curpage is: ' curPage)
-    //console.log(page);
-    // setCurPage(page);
     setElementsForCurPage(page);
     setFocus(0);
   };
 
   let handleHover = (el: any, index: any) => {
     setFocus(index);
+    setIsWord(true);
   };
-
   return (
     <div>
-      <div className="mainContainer">
-        {elements.map((el: any, index: number) => (
-          <div>{focus === index ? <StoryTrans text={el} /> : null}</div>
-        ))}
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}></div>
-        <Divider>Title</Divider>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {elements.map((el: any, index: number) => (
-            <div>
-              {focus === index ? (
-                <p
-                  onMouseEnter={() => handleHover(el, index)}
-                  style={{
-                    marginLeft: '.5rem',
-                    fontSize: '24px',
-                    color: '#1DA57A',
-                  }}
-                >
-                  {el}
-                </p>
-              ) : (
-                <p
-                  onMouseEnter={() => handleHover(el, index)}
-                  style={{ marginLeft: '.5rem', fontSize: '24px' }}
-                >
-                  {el}
-                </p>
-              )}
-              <p
-                onMouseEnter={() => handleHover(el, index)}
-                style={{ marginLeft: '.5rem', fontSize: '24px' }}
-              ></p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <footer
-        style={{
-          backgroundColor: 'green',
-        }}
-      >
-        <Menu theme="light" mode="horizontal">
-          <Menu.Item key="1" style={{ float: 'right', paddingTop: '12px' }}>
-            <Pagination
-              simple
-              onChange={handlePageChange}
-              defaultCurrent={1}
-              total={pageCount * 10}
-            />
-          </Menu.Item>
-          <Menu.Item key="3" style={{ marginLeft: '42px', paddingTop: '6px' }}>
-            <PlayCircleTwoTone
-              twoToneColor="#1DA57A"
-              style={{ fontSize: 24 }}
-            />
-          </Menu.Item>
-        </Menu>
-      </footer>
+      {isWord ? (
+        <StoryWords setIsWord={setIsWord} isWord={isWord} />
+      ) : (
+        <StorySentences setIsWord={setIsWord} isWord={isWord}></StorySentences>
+      )}
     </div>
   );
 };

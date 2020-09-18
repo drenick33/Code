@@ -27,21 +27,27 @@ def makeExcel(sites):
         worksheet.write('A' + str(row), sites[i])
         data = getSoup(sites[i])
         #data = removeDups(data)  #get rid of duplicate entries
-        y = re.findall(r'[\w\.-]+@[\w\.-]+', data)  #Get all emails
-        if y:
-            worksheet.write('B' + str(row), y[0])
-            print('---Email---')
-            print(y[0])
-        else:
-            worksheet.write('B' + str(row), 'N/A')
+        try:
+            y = re.findall(r'[\w\.-]+@[\w\.-]+', data)  #Get all emails
+            if y:
+                worksheet.write('B' + str(row), y[0])
+                print('---Email---')
+                print(y[0])
+            else:
+                worksheet.write('B' + str(row), 'N/A')
+        except:
+                worksheet.write('B' + str(row), 'No info')
 
-        x = re.findall(r'(https?://[^\s]+)', data)  #Get all Urls
-        x = removeDups(x)
-        searchString(x, 'instagram.com', row, 'C', worksheet)
-        searchString(x, 'facebook.com', row, 'D', worksheet)
-        searchString(x, 'twitter.com', row, 'E', worksheet)
-        searchString(x, 'youtube.com', row, 'F', worksheet)
-        searchString(x, 'pinterest.com', row, 'G', worksheet)
+        try:
+            x = re.findall(r'(https?://[^\s]+)', data)  #Get all Urls
+            x = removeDups(x)
+            searchString(x, 'instagram.com', row, 'C', worksheet)
+            searchString(x, 'facebook.com', row, 'D', worksheet)
+            searchString(x, 'twitter.com', row, 'E', worksheet)
+            searchString(x, 'youtube.com', row, 'F', worksheet)
+            searchString(x, 'pinterest.com', row, 'G', worksheet)
+        except:
+            pass
         #if re.findall('instagram', x):
            # print('---Instagram---')
           #  print(x)
