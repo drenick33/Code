@@ -14,7 +14,7 @@ const StoryFoot = (props: any) => {
           <Pagination
             simple
             onChange={props.handlePageChange}
-            defaultCurrent={1}
+            defaultCurrent={props.page}
             total={props.pageCount * 10}
           />
         </Menu.Item>

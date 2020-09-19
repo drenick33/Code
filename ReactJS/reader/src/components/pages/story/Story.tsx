@@ -8,12 +8,14 @@ import StoryWords from './StoryWords';
 import StorySentences from './StorySentences';
 import { Divider, Pagination, Menu } from 'antd';
 import { PlayCircleTwoTone } from '@ant-design/icons';
+import StoryFoot from './StoryFoot';
 
 const Story = (props: any) => {
   let [focus, setFocus] = useState(0);
   let [elements, setElements] = useState(['']); //what goes in the current page
   let [pageCount, setPageCount] = useState(1); //total pages
   let [perPage] = useState(100);
+  let [curPage, setCurPage] = useState(1);
   let [isWord, setIsWord] = useState(true);
   let [sentFocus, setSentFocus] = useState(false);
 
@@ -45,6 +47,7 @@ const Story = (props: any) => {
 
   const handlePageChange = (page: any) => {
     setElementsForCurPage(page);
+    console.log(page);
     setFocus(0);
   };
 
@@ -55,9 +58,19 @@ const Story = (props: any) => {
   return (
     <div>
       {isWord ? (
-        <StoryWords setIsWord={setIsWord} isWord={isWord} />
+        <StoryWords
+          setIsWord={setIsWord}
+          isWord={isWord}
+          curPage={curPage}
+          setCurPage={setCurPage}
+        />
       ) : (
-        <StorySentences setIsWord={setIsWord} isWord={isWord}></StorySentences>
+        <StorySentences
+          setIsWord={setIsWord}
+          isWord={isWord}
+          curPage={curPage}
+          setCurPage={setCurPage}
+        ></StorySentences>
       )}
     </div>
   );

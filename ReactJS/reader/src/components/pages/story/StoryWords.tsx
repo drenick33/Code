@@ -19,7 +19,7 @@ const Story = (props: any) => {
 
   useEffect(() => {
     recievePageData();
-    setElementsForCurPage(1);
+    setElementsForCurPage(props.curPage);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const recievePageData = () => {
@@ -30,6 +30,7 @@ const Story = (props: any) => {
   };
 
   const setElementsForCurPage = (page: number) => {
+    console.log(page);
     const indexOfLastWord = page * perPage;
     const indexOfFirstWord = indexOfLastWord - perPage;
     let elements = words.slice(indexOfFirstWord, indexOfLastWord);
@@ -37,6 +38,7 @@ const Story = (props: any) => {
   };
 
   const handlePageChange = (page: any) => {
+    props.setCurPage(page);
     setElementsForCurPage(page);
     setFocus(0);
   };
@@ -103,7 +105,8 @@ const Story = (props: any) => {
             <Pagination
               simple
               onChange={handlePageChange}
-              defaultCurrent={1}
+              defaultCurrent={props.curPage}
+              current={props.curPage}
               total={pageCount * 10}
             />
           </Menu.Item>
