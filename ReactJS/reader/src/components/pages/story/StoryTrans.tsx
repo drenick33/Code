@@ -11,8 +11,10 @@ const StoryTrans = (props: any) => {
   const text = get(props, 'text', '');
   //  const setIsWord = get(props, '');
 
-  let trans: string = text.replace(/\W/g, '');
+  let trans: string = text.replace(/\W/g, ' ');
   trans = trans.replace(/^\w/, (c) => c.toUpperCase());
+  let translation: string[] = trans.split(' ');
+  console.log(translation);
 
   const playAudio = () => {
     //say.speak(trans);
@@ -26,6 +28,12 @@ const StoryTrans = (props: any) => {
             direction="horizontal"
             style={{ width: '100%', justifyContent: 'center' }}
           >
+            {translation.map((el: any) => (
+              <div>
+                <p>{translation[el]}</p>
+                <p> </p>
+              </div>
+            ))}
             <p style={{ fontSize: '18px' }}>{trans}</p>
           </Space>
           <Space

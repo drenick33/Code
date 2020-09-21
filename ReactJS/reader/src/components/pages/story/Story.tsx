@@ -11,13 +11,13 @@ import { PlayCircleTwoTone } from '@ant-design/icons';
 import StoryFoot from './StoryFoot';
 
 const Story = (props: any) => {
-  let [focus, setFocus] = useState(0);
+  let [focus, setFocus] = useState([0, 1]);
   let [elements, setElements] = useState(['']); //what goes in the current page
   let [pageCount, setPageCount] = useState(1); //total pages
   let [perPage] = useState(100);
   let [curPage, setCurPage] = useState(1);
-  let [isWord, setIsWord] = useState(true);
-  let [sentFocus, setSentFocus] = useState(false);
+  let [isWord, setIsWord] = useState(false);
+  let [curSent, setCurSent] = useState(0);
 
   let story: string =
     'Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint. Reprehenderit assumenda veniam officiis dignissimos, laborum facilis illum dolores nam modi, quibusdam ea! Rem temporibus doloribus iste illum dolorem vitae sint.';
@@ -29,6 +29,7 @@ const Story = (props: any) => {
   useEffect(() => {
     recievePageData();
     setElementsForCurPage(1);
+    setCurSent(0);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const recievePageData = () => {
@@ -48,13 +49,16 @@ const Story = (props: any) => {
   const handlePageChange = (page: any) => {
     setElementsForCurPage(page);
     console.log(page);
-    setFocus(0);
+    setFocus([0]);
   };
 
   let handleHover = (el: any, index: any) => {
     setFocus(index);
     setIsWord(true);
   };
+
+  const setCurSentence = () => {};
+
   return (
     <div>
       {isWord ? (
@@ -63,6 +67,8 @@ const Story = (props: any) => {
           isWord={isWord}
           curPage={curPage}
           setCurPage={setCurPage}
+          setCurSentence={setCurSentence}
+          curSent={curSent}
         />
       ) : (
         <StorySentences
@@ -70,6 +76,8 @@ const Story = (props: any) => {
           isWord={isWord}
           curPage={curPage}
           setCurPage={setCurPage}
+          setCurSent={setCurSentence}
+          curSent={curSent}
         ></StorySentences>
       )}
     </div>
