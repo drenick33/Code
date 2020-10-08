@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.less';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+//Redux Store
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './store/reducers/rootReducer';
+import thunk from 'redux-thunk';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 document.title = 'Reader';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

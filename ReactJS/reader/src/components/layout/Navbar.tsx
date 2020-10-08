@@ -18,9 +18,6 @@ const Navbar = () => {
       <Menu.Item key="2" style={{ float: 'right' }}>
         <a href="savedwords">Saved Words</a>
       </Menu.Item>
-      <Menu.Item key="4" style={{ float: 'right' }}>
-        <a href="browser">Browse Stories</a>
-      </Menu.Item>
     </Menu>
   );
 };
