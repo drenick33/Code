@@ -14,9 +14,9 @@ function App() {
           <Navbar></Navbar>
         </header>
         <Switch>
-          <Route exact path="/" component={Story}></Route>
-          <Route exact path="/browser" component={Browser}></Route>
-          <Route exact path="/savedwords" component={SavedWords}></Route>
+          <Route exact path="/" component={Browser} />
+          <Route path="/story/:id" component={Story} />
+          <Route exact path="/savedwords" component={SavedWords} />
         </Switch>
       </div>
     </BrowserRouter>
