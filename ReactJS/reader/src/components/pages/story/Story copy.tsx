@@ -9,7 +9,6 @@ import StoryFoot from './StoryFoot';
 
 const Story = (props: any) => {
   let [focus, setFocus] = useState([0, 1]);
-  let [curWord, setCurWord] = useState(0);
   let [elements, setElements] = useState(['']); //what goes in the current page
   let [pageCount, setPageCount] = useState(1); //total pages
   let [perPage] = useState(100);
@@ -111,95 +110,110 @@ const Story = (props: any) => {
     setCurPage(page);
     setElementsForCurPage(page);
     setFocus([0]);
-    setCurWord(0);
   };
 
-  let handleHover = (index: number) => {
-    if (isWord) {
-      //Actions for if the word is focused and being translated
-      if (index === curWord) {
-        //Clicked the same word
-        setIsWord(false); //Changes translation to sentence mode
-      } else {
-        //In word mode but user clicks a different word
-        setCurWord(index); //Changes the word highlighted
-        getCurSentence(index); //Make sure the sentence that word is in is highlighted
-      }
-    } else {
-      //Actions if you're in sentence mode
-      if (focus.includes(index)) {
-        //If the word is currently highlighted
-        if (index === curWord) {
-          //Change to word mode if same word is clicked in sentence mode
-          setIsWord(true);
-        } else {
-          //Change the word focused but doesn't change to word mode since that's jarring
-          setCurWord(index);
-        }
-      } else {
-        //If you click a word in a sentence that isn't highlighted
-        setCurWord(index);
-        getCurSentence(index); //Updates sentence
-      }
-    }
+  const handleWordClick = (index: number) => {
+    //click on word in word mode
+    setIsWord(false);
+    getCurSentence(index);
+  };
+
+  const handleWordHover = (index: number) => {
+    setFocus([index]);
+  };
+
+  let handleHover = (el: any, index: any) => {
+    setIsWord(true);
+    setFocus([index]);
+    // console.log(sentenceIndices);
+    // console.log('index is: ', index);
+    // console.log('focus is: ', focus[0]);
+    // if (isWord && focus[0] === index) {
+    //   console.log('Ran');
+    //   setIsWord(!isWord);
+    //   if (isWord) {
+    //     console.log('ran second');
+    //     setFocus(sentenceIndices[0]);
+    //   }
+    // }
   };
 
   return (
     <div>
-      <div className="mainContainer">
-        {isWord ? (
-          <StoryTrans
-            text={words[curWord].split('')}
-            setIsWord={setIsWord}
-            isWord={isWord}
-          />
-        ) : (
-          <StoryTrans text={curSent} setIsWord={setIsWord} isWord={isWord} />
-        )}
-        <Divider>{props.location.state.title}</Divider>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {isWord ? (
+        <div className="mainContainer">
           {elements.map((el: any, index: number) => (
-            <div key={index}>
-              {focus.includes(index) ? (
-                <div style={{ background: '#EFEFEF' }}>
-                  {index === curWord ? (
-                    <p
-                      onClick={() => handleHover(index)}
-                      style={{
-                        marginLeft: '.5rem',
-                        fontSize: '24px',
-                        color: '#1DA57A',
-                      }}
-                    >
-                      {el}
-                    </p>
-                  ) : (
-                    <p
-                      onClick={() => handleHover(index)}
-                      style={{
-                        marginLeft: '.5rem',
-                        fontSize: '24px',
-                      }}
-                    >
-                      {el}
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <p
-                  onClick={() => handleHover(index)}
-                  style={{
-                    marginLeft: '.5rem',
-                    fontSize: '24px',
-                  }}
-                >
-                  {el}
-                </p>
-              )}
+            <div>
+              {focus[0] === index ? (
+                <StoryTrans text={[el]} setIsWord={setIsWord} isWord={isWord} />
+              ) : null}
             </div>
           ))}
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}></div>
+          <Divider>{props.location.state.title}</Divider>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {elements.map((el: any, index: number) => (
+              <div>
+                {focus[0] === index ? (
+                  <p
+                    onClick={() => handleWordClick(index)}
+                    style={{
+                      marginLeft: '.5rem',
+                      fontSize: '24px',
+                      color: '#1DA57A',
+                    }}
+                  >
+                    {el}
+                  </p>
+                ) : (
+                  <p
+                    onClick={() => handleWordClick(index)}
+                    onMouseEnter={() => handleWordHover(index)}
+                    style={{ marginLeft: '.5rem', fontSize: '24px' }}
+                  >
+                    {el}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="mainContainer">
+          <StoryTrans text={curSent} setIsWord={setIsWord} isWord={isWord} />
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}></div>
+          <Divider>{props.location.state.title}</Divider>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {elements.map((el: any, index: number) => (
+              <div>
+                {focus.includes(index) ? (
+                  <p
+                    onClick={() => handleHover(el, index)}
+                    style={{
+                      marginLeft: '.5rem',
+                      fontSize: '24px',
+                      color: '#1DA57A',
+                    }}
+                  >
+                    {el}
+                  </p>
+                ) : (
+                  <p
+                    onClick={() => handleHover(el, index)}
+                    style={{ marginLeft: '.5rem', fontSize: '24px' }}
+                  >
+                    {el}
+                  </p>
+                )}
+                <p
+                  onClick={() => handleHover(el, index)}
+                  style={{ marginLeft: '.5rem', fontSize: '24px' }}
+                ></p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <StoryFoot
         handlePageChange={handlePageChange}
         page={curPage}
