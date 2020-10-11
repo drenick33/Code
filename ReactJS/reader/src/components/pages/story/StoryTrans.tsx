@@ -1,15 +1,10 @@
 import React from 'react';
 import { Space, Button } from 'antd';
-import {
-  SoundTwoTone,
-  SaveTwoTone,
-  //CloseCircleTwoTone,
-} from '@ant-design/icons';
+import { SoundTwoTone, SaveTwoTone } from '@ant-design/icons';
 import { get } from 'lodash';
 
 const StoryTrans = (props: any) => {
   let text = get(props, 'text', ['']);
-  //  const setIsWord = get(props, '');
 
   text[0] = text[0].replace(/^\w/, (c: any) => c.toUpperCase());
   text.map((el: any, index: number) => {
@@ -45,7 +40,7 @@ const StoryTrans = (props: any) => {
             }}
           >
             {translation.map((el: any, index: number) => (
-              <p key={index} style={{ fontSize: '24px' }}>
+              <p key={index} style={{ fontSize: '16px' }}>
                 {translation[index]}
               </p>
             ))}
@@ -84,10 +79,6 @@ const StoryTrans = (props: any) => {
               <SaveTwoTone twoToneColor="#1DA57A" />
               Save Word
             </Button>
-            {/* <Button onClick={() => props.setIsWord(false)}>
-              <CloseCircleTwoTone twoToneColor="#1DA57A" />
-              Close
-            </Button> */}
           </Space>
         </div>
       )}
