@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { HomeTwoTone } from '@ant-design/icons';
 import NavDrawer from './NavDrawer';
@@ -17,6 +18,15 @@ const Navbar = () => {
       </Menu.Item>
       <Menu.Item key="2" style={{ float: 'right' }}>
         <a href="savedwords">Saved Words</a>
+      </Menu.Item>
+      <Menu.Item key="4" style={{ float: 'right' }}>
+        <Link
+          to={{
+            pathname: '/custom/',
+          }}
+        >
+          Custom Text
+        </Link>
       </Menu.Item>
     </Menu>
   );
