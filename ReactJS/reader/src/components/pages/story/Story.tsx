@@ -18,8 +18,9 @@ const Story = (props: any) => {
   let [curSent, setCurSent] = useState(['']);
   let [sentenceIndices] = React.useState<Array<Array<number>>>([]);
 
-  let story: string = props.location.state.story; //Get from Link in Browser component
-  let words: string[] = story.split(' ');
+  let story: string = props.location.state.story;
+  story = story.replace(/--/, ''); //Get from Link in Browser component
+  let words: string[] = story.split(/\s+/); //Turn a string into an array of strings seperated by spaces and new lines
 
   useEffect(() => {
     setPageCount(Math.ceil(words.length / perPage)); //Sets the number of pages
@@ -43,9 +44,6 @@ const Story = (props: any) => {
       }
     }
 
-    console.log('Last word is: ', words[indexOfLastWord]);
-    console.log('words length', words.length);
-    console.log('indexofLastWord', indexOfLastWord);
     if (words.length >= indexOfLastWord) {
       while (!words[indexOfLastWord].endsWith('.' || '?' || '!')) {
         indexOfLastWord = indexOfLastWord - 1;
@@ -54,7 +52,7 @@ const Story = (props: any) => {
     }
 
     let elements = words.slice(indexOfFirstWord, indexOfLastWord + 1);
-    console.log('Elements are: ', elements);
+
     setElements(elements);
     getWordCount(elements.join(' '));
   };
