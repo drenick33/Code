@@ -65,7 +65,7 @@ const StoryTrans = (props: any) => {
             direction="horizontal"
             style={{ width: '100%', justifyContent: 'center' }}
           >
-            <p style={{ fontSize: '24px' }}>{translation}</p>
+            <p style={{ fontSize: '16px' }}>{translation}</p>
           </Space>
           <Space
             direction="horizontal"

@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 import Story from './components/pages/story/Story';
 import Browser from './components/pages/browser/Browser';
 import SavedWords from './components/pages/savedWords/SavedWords';
+import InputForm from './components/pages/userText/InputForm';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" component={Browser} />
           <Route path="/story/:id" component={Story} />
           <Route exact path="/savedwords" component={SavedWords} />
+          <Route exact path="/custom" component={InputForm} />
         </Switch>
       </div>
     </BrowserRouter>
