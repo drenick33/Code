@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 
-app.use((req, res, next) => {
-  res.status(200).json(y{ message: 'words' });
-});
+const wordsRoutes = require('./modules/words/Routes');
+
+app.use('/words', wordsRoutes);
 
 module.exports = app;
