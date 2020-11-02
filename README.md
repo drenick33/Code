@@ -1,8 +1,8 @@
 # Code
-Code I use to practice coding.
+Code I have written in several different languages.
+The project I'm working the most on is called reader (temp name) under React. It will ultimately be a program similar to the app DuChinese, and will make it easier to read stories in another language and provide an easy interface to see translations of sentences/words and hear how words are pronounced.
+
 Godot is an open source game engine I've been learning to develop a 3d game.
 Godot uses its own scripting language called GDScript which closely resembles Python.
-I have recently decided to start learn how to develop cross platform mobile apps
-I started by learning angular and nativescript but have recently switched to 
-Flutter+Dart and find it a lot more intuitive and enjoy the coding style.
-I'm decided to focus on Flutter and I will be frequently updating as I progress.
+
+I am also interested in following new cutting-edge languages and technology and am also working a bit in Flutter+Dart.
