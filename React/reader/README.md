@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+reader is a program that I'm developing in order to make it easier for language learners to read stories. I ultimately hope to deploy the app and make a mobile app using reactNative.
 
 ## Available Scripts
 
