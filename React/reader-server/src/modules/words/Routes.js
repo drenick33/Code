@@ -6,6 +6,8 @@ const searchWords = require('./controllers/searchWords');
 const deleteWordById = require('./controllers/deleteWordById');
 const addWord = require('./controllers/addWord');
 
+//These routes start at /words/
+
 //Get Methods
 router.get('/', getAllWords);
 
