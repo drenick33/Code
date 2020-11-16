@@ -2,6 +2,14 @@
 const express = require('express');
 const app = express();
 
+//Set up mongoose
+const mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb+srv://dan:' +
+    process.env.MONGO_ATLAS_PW +
+    '@reader.qzela.mongodb.net/<dbname>?retryWrites=true&w=majority',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 //Set up morgan middleware
 const morgan = require('morgan'); //Middleware that adds logs
 app.use(morgan('dev'));
@@ -27,8 +35,10 @@ app.use((req, res, next) => {
 
 //Routes
 const wordsRoutes = require('./modules/words/Routes');
+const storyRoutes = require('./modules/story/Routes');
 
 app.use('/words', wordsRoutes);
+app.use('/story', storyRoutes);
 
 //Error handling for when a route isn't found
 app.use((req, res, next) => {
