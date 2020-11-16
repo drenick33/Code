@@ -17,7 +17,7 @@ router.get('/:id', getWordById);
 router.post('/search', searchWords);
 
 //Patch methods
-router.patch('/', addWord);
+router.patch('/', addWord); //Patch since we'll be adding to an array
 
 //Delete methods
 router.delete('/:id', deleteWordById);
