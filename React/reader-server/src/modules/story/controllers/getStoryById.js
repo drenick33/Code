@@ -3,6 +3,7 @@ const Story = require('../storyModel');
 const getStoryById = (req, res) => {
   const _id = req.params.storyId;
   Story.findById(_id)
+    .select('-__v')
     .exec()
     .then((doc) => {
       if (doc) {

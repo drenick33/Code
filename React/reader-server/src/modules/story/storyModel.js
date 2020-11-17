@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const StorySchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  title: String,
+  title: { type: String, required: true },
   description: String,
   date: Date,
-  text: String,
-  author: String,
+  text: { type: String, required: true },
+  author: { type: String, required: true },
   level: String,
   image: String,
 });

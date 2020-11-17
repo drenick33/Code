@@ -2,10 +2,16 @@ const Story = require('../storyModel');
 
 const getAllStories = (req, res) => {
   Story.find()
+    .select('-__v')
     .exec()
     .then((doc) => {
       if (doc.length > 0) {
-        res.status(200).json(doc);
+        const response = {
+          message: 'getAllStories Success',
+          count: doc.length,
+          stories: doc,
+        };
+        res.status(200).json(response);
       } else {
         res.status(404).json({ message: 'There are no Stories :(' });
       }
