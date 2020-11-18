@@ -1,19 +1,19 @@
-const Word = require('../wordModel');
+const WordList = require('../wordListModel');
 
 const getAllWords = (req, res) => {
-  Word.find()
+  WordList.find()
     .select('-__v')
     .exec()
     .then((doc) => {
       if (doc.length > 0) {
         const response = {
-          message: 'getAllWords Success',
+          message: 'getAllWordLists Success',
           count: doc.length,
-          words: doc,
+          lists: doc,
         };
         res.status(200).json(response);
       } else {
-        res.status(404).json({ message: 'There are no Words :(' });
+        res.status(404).json({ message: 'There are no Word Lists :(' });
       }
     })
     .catch((error) => {
