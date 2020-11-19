@@ -3,6 +3,7 @@ const Word = require('../wordModel');
 const getAllWords = (req, res) => {
   Word.find()
     .select('-__v')
+    .populate('story', 'title author')
     .exec()
     .then((doc) => {
       if (doc.length > 0) {
