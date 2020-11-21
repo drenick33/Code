@@ -6,6 +6,7 @@ const addWord = (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     listName: req.body.listName,
     date: Date.now(),
+    owner: req.userData.userId,
   });
   list
     .save()

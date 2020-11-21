@@ -13,6 +13,11 @@ const wordListSchema = mongoose.Schema({
   listName: { type: String, required: true },
   date: Date,
   words: { type: [mongoose.Schema.Types.ObjectId], ref: 'Word', default: [] },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('WordList', wordListSchema);

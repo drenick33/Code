@@ -11,6 +11,7 @@ const getWordListById = require('./controllers/getWordListById');
 const editWordList = require('./controllers/editWordList');
 const deleteWordListById = require('./controllers/deleteWordListById');
 const editWord = require('./controllers/editWord');
+const checkAuth = require('../auth/checkAuth');
 //These routes start at /words/
 
 //Get Methods
@@ -22,7 +23,7 @@ router.get('/list/:listId', getWordListById);
 
 //Post methods
 router.post('/', addWord);
-router.post('/list', createWordList);
+router.post('/list', checkAuth, createWordList);
 router.post('/search', searchWords);
 
 //Patch methods

@@ -6,6 +6,8 @@ const searchStories = require('./controllers/searchStories');
 const deleteStoryById = require('./controllers/deleteStoryById');
 const addStory = require('./controllers/addStory');
 const editStory = require('./controllers/editStory');
+const checkAdmin = require('../auth/checkAdmin');
+const checkAuth = require('../auth/checkAuth');
 
 //These routes start at /Stories/
 
@@ -15,12 +17,12 @@ router.get('/:storyId', getStoryById);
 
 //Post methods
 router.post('/search', searchStories);
-router.post('/', addStory);
+router.post('/', checkAdmin, addStory);
 
 //Patch methods
-router.patch('/:storyId', editStory);
+router.patch('/:storyId', checkAdmin, editStory);
 
 //Delete methods
-router.delete('/:storyId', deleteStoryById);
+router.delete('/:storyId', checkAdmin, deleteStoryById);
 
 module.exports = router;
