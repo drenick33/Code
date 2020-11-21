@@ -10,7 +10,7 @@ const StorySchema = mongoose.Schema({
   level: {
     type: String,
     enum: [
-      'Beginer',
+      'Beginner',
       'Elementary',
       'Intermediate',
       'Upper Intermediate',
@@ -19,7 +19,7 @@ const StorySchema = mongoose.Schema({
     ],
     default: 'Intermediate',
   },
-  image: String,
+  image: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Story', StorySchema);
