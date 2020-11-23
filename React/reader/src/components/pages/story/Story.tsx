@@ -8,6 +8,7 @@ import { Divider } from 'antd';
 import StoryFoot from './StoryFoot';
 
 const Story = (props: any) => {
+  let [story, setStory] = useState('');
   let [focus, setFocus] = useState([0, 1]);
   let [curWord, setCurWord] = useState(0);
   let [elements, setElements] = useState(['']); //what goes in the current page
@@ -18,11 +19,20 @@ const Story = (props: any) => {
   let [curSent, setCurSent] = useState(['']);
   let [sentenceIndices] = React.useState<Array<Array<number>>>([]);
 
-  let story: string = props.location.state.story;
   story = story.replace(/--/, ''); //Get from Link in Browser component
-  let words: string[] = story.split(/\s+/); //Turn a string into an array of strings seperated by spaces and new lines
+  var words: string[] = story.split(/\s+/); //Turn a string into an array of strings seperated by spaces and new lines
 
   useEffect(() => {
+    if (props.location.state.story) {
+      //If you get the text passed from the browser
+      console.log('ran');
+      var text = props.location.state.story.replace(/--/, '');
+      console.log(props.location.state.story);
+      setStory(text); //Get from Link in Browser component
+      words = text.split(/\s+/); //Turn a string into an array of strings seperated by spaces and new lines
+    } else {
+      console.log('get from server');
+    }
     setPageCount(Math.ceil(words.length / perPage)); //Sets the number of pages
     setElementsForCurPage(1); //Gets text for first page on first load
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -56,6 +66,8 @@ const Story = (props: any) => {
     setElements(elements);
     getWordCount(elements.join(' '));
   };
+
+  console.log(story);
 
   const getWordCount = (words: string) => {
     //Got total numer of words, and find sentences
@@ -144,7 +156,7 @@ const Story = (props: any) => {
 
   return (
     <div>
-      <div className="mainContainer">
+      <div className='mainContainer'>
         {isWord ? (
           <StoryTrans
             text={words[curWord].split('')}
