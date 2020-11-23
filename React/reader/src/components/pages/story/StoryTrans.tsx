@@ -9,7 +9,7 @@ const StoryTrans = (props: any) => {
   text[0] = text[0].replace(/^\w/, (c: any) => c.toUpperCase());
   text.map((el: any, index: number) => {
     text[index] = text[index].replace(
-      /[`~!@#$%^&*()_|+\-=?;:'",.<>{}[\]\\/]/gi,
+      /[`~!@#$%^&*()_|+\-=?;:",.<>{}[\]\\/]/gi,
       ''
     );
     return null; //prevents error
@@ -31,7 +31,7 @@ const StoryTrans = (props: any) => {
       {!props.isWord ? (
         <div>
           <Space
-            direction="horizontal"
+            direction='horizontal'
             style={{
               width: '100%',
               justifyContent: 'center',
@@ -46,15 +46,15 @@ const StoryTrans = (props: any) => {
             ))}
           </Space>
           <Space
-            direction="horizontal"
+            direction='horizontal'
             style={{ width: '100%', justifyContent: 'center' }}
           >
-            <Button type="default" onClick={playAudio}>
-              <SoundTwoTone twoToneColor="#1DA57A" />
+            <Button type='default' onClick={playAudio}>
+              <SoundTwoTone twoToneColor='#1DA57A' />
               Play Audio
             </Button>
             <Button>
-              <SaveTwoTone twoToneColor="#1DA57A" />
+              <SaveTwoTone twoToneColor='#1DA57A' />
               Save Word
             </Button>
           </Space>
@@ -62,21 +62,21 @@ const StoryTrans = (props: any) => {
       ) : (
         <div>
           <Space
-            direction="horizontal"
+            direction='horizontal'
             style={{ width: '100%', justifyContent: 'center' }}
           >
             <p style={{ fontSize: '16px' }}>{translation}</p>
           </Space>
           <Space
-            direction="horizontal"
+            direction='horizontal'
             style={{ width: '100%', justifyContent: 'center' }}
           >
-            <Button type="default" onClick={playAudio}>
-              <SoundTwoTone twoToneColor="#1DA57A" />
+            <Button type='default' onClick={playAudio}>
+              <SoundTwoTone twoToneColor='#1DA57A' />
               Play Audio
             </Button>
             <Button>
-              <SaveTwoTone twoToneColor="#1DA57A" />
+              <SaveTwoTone twoToneColor='#1DA57A' />
               Save Word
             </Button>
           </Space>

@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Card, Col, Row } from 'antd';
+import { get } from '../../../utils/httpMethods';
 const { Meta } = Card;
 
 //@TODO Add shadow feature
 
 const Browser = (props: any) => {
   const [focus, setFocus] = useState(Number);
+  const [stories, setStories] = useState([{}]);
+
+  useEffect(() => {
+    queryGetAllStories();
+  }, []);
+
+  async function queryGetAllStories(): Promise<any> {
+    let data = await get({ url: `/story` });
+    data = data.stories;
+    setStories(data);
+  }
 
   const handleHover = (_id: any) => {
     setFocus(_id);
@@ -18,11 +29,11 @@ const Browser = (props: any) => {
   };
 
   return (
-    <div className="mainContainer">
-      <div className="site-card-wrapper">
+    <div className='mainContainer'>
+      <div className='site-card-wrapper'>
         <Row>
-          {props.stories &&
-            props.stories.map((el: any) => (
+          {stories &&
+            stories.map((el: any) => (
               <Col key={el._id}>
                 {el._id === focus ? (
                   <Link
@@ -42,8 +53,8 @@ const Browser = (props: any) => {
                       onMouseLeave={handleExit}
                       cover={
                         <img
-                          alt="example"
-                          src={el.link}
+                          alt='example'
+                          src={el.image}
                           style={{
                             height: 'auto',
                             maxHeight: '250px',
@@ -70,8 +81,8 @@ const Browser = (props: any) => {
                     }}
                     cover={
                       <img
-                        alt="example"
-                        src={el.link}
+                        alt='example'
+                        src={el.image}
                         style={{
                           height: 'auto',
                           maxHeight: '250px',
@@ -92,29 +103,4 @@ const Browser = (props: any) => {
     </div>
   );
 };
-
-const mapStateToProps = (state: any) => {
-  return {
-    stories: state.stories.stories,
-  };
-};
-
-export default connect(mapStateToProps, null)(Browser);
-
-// <div className="mainContainer">
-//   <div className="site-card-wrapper">
-//     <Row>
-//       {props.stories.map((el: any) => (
-//         <Col span={8}>
-//           <Card
-//             title={el.title}
-//             bordered={true}
-//             style={{ textAlign: 'center' }}
-//           >
-//             {el.author}
-//           </Card>
-//         </Col>
-//       ))}
-//     </Row>
-//   </div>
-// </div>;
+export default Browser;
