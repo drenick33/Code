@@ -5,9 +5,10 @@ const app = express();
 //Set up mongoose
 const mongoose = require('mongoose');
 mongoose.connect(
-  'mongodb+srv://dan:' +
-    process.env.MONGO_ATLAS_PW +
-    '@reader.qzela.mongodb.net/<dbname>?retryWrites=true&w=majority',
+  'mongodb://localhost:27017/reader',
+  // 'mongodb+srv://dan:' +
+  //   process.env.MONGO_ATLAS_PW +
+  //   '@reader.qzela.mongodb.net/<dbname>?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
