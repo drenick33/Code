@@ -4,84 +4,34 @@ import { SoundTwoTone, SaveTwoTone } from '@ant-design/icons';
 import { get } from 'lodash';
 
 const StoryTrans = (props: any) => {
-  let text = get(props, 'text', ['']);
-
-  text[0] = text[0].replace(/^\w/, (c: any) => c.toUpperCase());
-  text.map((el: any, index: number) => {
-    text[index] = text[index].replace(
-      /[`~!@#$%^&*()_|+\-=?;:",.<>{}[\]\\/]/gi,
-      ''
-    );
-    return null; //prevents error
-  });
-
-  // let trans: string = text.replace(
-  //   /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
-  //   ''
-  // );
-  let translation: string[] = text;
-  console.log(translation);
-
-  const playAudio = () => {
-    //say.speak(trans);
-  };
+  let chinese = get(props, 'chinese', ['']);
+  let showTrans = get(props, 'showTrans');
+  let setShowTrans = get(props, 'setShowTrans');
+  //   const playAudio = () => {
+  //     //say.speak(trans);
+  //   };
 
   return (
-    <div>
-      {!props.isWord ? (
-        <div>
-          <Space
-            direction='horizontal'
-            style={{
-              width: '100%',
-              justifyContent: 'center',
-              display: 'flex',
-              flexWrap: 'wrap',
-            }}
-          >
-            {translation.map((el: any, index: number) => (
-              <p key={index} style={{ fontSize: '16px' }}>
-                {translation[index]}
-              </p>
-            ))}
-          </Space>
-          <Space
-            direction='horizontal'
-            style={{ width: '100%', justifyContent: 'center' }}
-          >
-            <Button type='default' onClick={playAudio}>
-              <SoundTwoTone twoToneColor='#1DA57A' />
-              Play Audio
-            </Button>
-            <Button>
-              <SaveTwoTone twoToneColor='#1DA57A' />
-              Save Word
-            </Button>
-          </Space>
-        </div>
-      ) : (
-        <div>
-          <Space
-            direction='horizontal'
-            style={{ width: '100%', justifyContent: 'center' }}
-          >
-            <p style={{ fontSize: '16px' }}>{translation}</p>
-          </Space>
-          <Space
-            direction='horizontal'
-            style={{ width: '100%', justifyContent: 'center' }}
-          >
-            <Button type='default' onClick={playAudio}>
-              <SoundTwoTone twoToneColor='#1DA57A' />
-              Play Audio
-            </Button>
-            <Button>
-              <SaveTwoTone twoToneColor='#1DA57A' />
-              Save Word
-            </Button>
-          </Space>
-        </div>
-      )}
+    <div onClick={() => setShowTrans(!showTrans)}>
+      <Space
+        direction='horizontal'
+        style={{ width: '100%', justifyContent: 'center' }}
+      >
+        {showTrans ? (
+          <p style={{ fontSize: '24px' }}>{chinese}</p>
+        ) : (
+          <p style={{ fontSize: '24px' }}>Click here to show translation</p>
+        )}
+      </Space>
+      <Space
+        direction='horizontal'
+        style={{ width: '100%', justifyContent: 'center' }}
+      >
+        {/* <Button type='default' onClick={playAudio}>
+          <SoundTwoTone twoToneColor='#1DA57A' />
+          Play Audio
+        </Button> */}
+      </Space>
     </div>
   );
 };

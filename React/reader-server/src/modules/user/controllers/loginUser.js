@@ -37,6 +37,9 @@ const loginUser = (req, res) => {
           }
         });
       }
+    })
+    .catch((error) => {
+      return res.status(401).json({ message: 'Auth Failed', error });
     });
 };
 

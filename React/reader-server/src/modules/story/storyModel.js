@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const StorySchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   title: { type: String, required: true },
-  description: String,
+  description: { type: String, required: true },
   date: Date,
-  text: { type: String, required: true },
+  english: { type: [String], required: true }, //Array of English Sentences
+  chinese: { type: [String], required: true }, //Array of those Sentences translated to Chinese
   author: { type: String, required: true },
   level: {
     type: String,
@@ -18,6 +19,11 @@ const StorySchema = mongoose.Schema({
       'Master',
     ],
     default: 'Intermediate',
+  },
+  genre: {
+    type: String,
+    enum: ['poetry', 'dialogue', 'stories'],
+    required: true,
   },
   image: { type: String, required: true },
 });
