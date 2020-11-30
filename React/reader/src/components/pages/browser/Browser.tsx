@@ -4,8 +4,6 @@ import { Card, Col, Row } from 'antd';
 import { get } from '../../../utils/httpMethods';
 const { Meta } = Card;
 
-//@TODO Add shadow feature
-
 const Browser = (props: any) => {
   const [focus, setFocus] = useState(Number);
   const [stories, setStories] = useState([{}]);

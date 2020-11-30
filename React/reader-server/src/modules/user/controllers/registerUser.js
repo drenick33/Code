@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 const User = require('../userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const registerUser = (req, res) => {
-  User.find({ email: req.body.email }) //Check if email is already used
+  User.find({
+    $or: [{ email: req.body.email }, { name: req.body.name }],
+  }) //Check if email is already used
     .exec()
     .then((user) => {
       if (user.length >= 1) {
-        res.status(409).json({ message: 'Email already used' });
+        res.status(409).json({ message: 'Username or email already in use' });
       } else {
         //Email isn't already used
         bcrypt.hash(req.body.password, 10, (error, hash) => {
@@ -24,12 +27,22 @@ const registerUser = (req, res) => {
               signupDate: Date.now(),
               level: req.body.level,
             });
+            const token = jwt.sign(
+              {
+                email: user.email,
+                userId: user._id,
+                role: user.role,
+              },
+              process.env.JWT_KEY,
+              { expiresIn: '1h' }
+            );
             user
               .save()
               .then((result) => {
                 console.log(result);
                 res.status(201).json({
                   message: 'Registered User!',
+                  token: token,
                   user: user,
                 });
               })

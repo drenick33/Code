@@ -12,6 +12,7 @@ const editWordList = require('./controllers/editWordList');
 const deleteWordListById = require('./controllers/deleteWordListById');
 const editWord = require('./controllers/editWord');
 const checkAuth = require('../auth/checkAuth');
+const wordTranslate = require('./controllers/wordTranslate');
 //These routes start at /words/
 
 //Get Methods
@@ -19,6 +20,7 @@ router.get('/', getAllWords);
 router.get('/list', getAllWordLists);
 router.get('/:wordId', getWordById);
 router.get('/list/:listId', getWordListById);
+router.get('/translate/:word', wordTranslate);
 //router.get('/list/:_id, getWordListById)
 
 //Post methods

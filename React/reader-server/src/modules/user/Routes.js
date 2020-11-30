@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const getUserById = require('./controllers/getUserById');
 const registerUser = require('./controllers/registerUser');
 const deleteUserById = require('./controllers/deleteUserById');
 const loginUser = require('./controllers/loginUser');
@@ -7,8 +8,7 @@ const checkAuth = require('../auth/checkAuth');
 //These routes start at /Stories/
 
 // //Get Methods
-// router.get('/', getAllStories);
-// router.get('/:storyId', getStoryById);
+router.get('/', checkAuth, getUserById);
 
 // //Post methods
 // router.post('/search', searchStories);

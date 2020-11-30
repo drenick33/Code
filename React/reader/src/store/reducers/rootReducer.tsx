@@ -1,7 +1,8 @@
-import authReducer from './authReducer';
 import storyReducer from './storyReducer';
 import storiesReducer from './storiesReducer';
 import wordsReducer from './wordsReducer';
+import authReducer from './authReducer';
+import errorReducer from './errorReducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   story: storyReducer,
   stories: storiesReducer,
   words: wordsReducer,
+  error: errorReducer,
 });
 
 export default rootReducer;
