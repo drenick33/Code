@@ -14,6 +14,9 @@ import { get } from 'lodash';
 
 const Navbar = ({ logout, auth }: ILogoutProps) => {
   let history = useHistory();
+  const role = get(auth, 'user.user.role');
+  console.log(role);
+  console.log(auth);
 
   const logoutHandler = () => {
     history.push('/');
@@ -72,6 +75,17 @@ const Navbar = ({ logout, auth }: ILogoutProps) => {
           Custom Text
         </Link>
       </Menu.Item>
+      {role === 'admin' ? (
+        <Menu.Item key='10' style={{ float: 'right' }}>
+          <Link
+            to={{
+              pathname: '/addstory/',
+            }}
+          >
+            Add Story
+          </Link>
+        </Menu.Item>
+      ) : null}
     </Menu>
   );
 };

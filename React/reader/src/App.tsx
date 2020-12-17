@@ -10,6 +10,7 @@ import SavedWords from './components/pages/savedWords/SavedWords';
 import InputForm from './components/pages/userText/InputForm';
 import UserRegister from './components/pages/user/userRegister';
 import UserLogin from './components/pages/user/userLogin';
+import StoryAdd from './components/pages/story/StoryAdd';
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Browser} />
           <Route path='/story/:storyId' component={Story} />
+          <Route path='/addstory' component={StoryAdd} />
           <Route exact path='/savedwords' component={SavedWords} />
           <Route exact path='/custom' component={InputForm} />
           <Route exact path='/user/register' component={UserRegister} />

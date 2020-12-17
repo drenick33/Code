@@ -13,6 +13,7 @@ const addStory = (req, res) => {
     author: req.body.author,
     level: req.body.level,
     image: req.body.image,
+    tags: req.body.tags,
   });
   story
     .save()

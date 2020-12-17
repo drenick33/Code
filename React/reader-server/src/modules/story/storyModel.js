@@ -22,9 +22,10 @@ const StorySchema = mongoose.Schema({
   },
   genre: {
     type: String,
-    enum: ['poetry', 'dialogue', 'stories'],
+    enum: ['poetry', 'dialogue', 'story'],
     required: true,
   },
+  tags: { type: [String], required: true },
   image: { type: String, required: true },
 });
 

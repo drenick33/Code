@@ -26,6 +26,7 @@ const Story = (props: any) => {
   }
 
   async function queryGetWordTrans(word: string): Promise<any> {
+    setWordTrans(['']);
     let data = await get({ url: '/words/translate/' + word });
     setWordTrans(data.trans.slice(0, 3).join('，'));
   }
@@ -40,16 +41,26 @@ const Story = (props: any) => {
 
   return (
     <div>
-      <div className='mainContainer' style={{ wordWrap: 'break-word' }}>
-        <StoryTrans
-          chinese={trans[curSent]}
-          showTrans={showTrans}
-          setShowTrans={setShowTrans}
-        ></StoryTrans>
-        <Divider>{title}</Divider>
+      <div className='mainContainer'>
+        <header style={{ marginTop: '47px', backgroundColor: 'white' }}>
+          <StoryTrans
+            chinese={trans[curSent]}
+            showTrans={showTrans}
+            setShowTrans={setShowTrans}
+          ></StoryTrans>
+        </header>
+        <Divider style={{ fontSize: '24px' }}>{title}</Divider>
         {story.map((el: any, index: number) => (
           //   <div key={el}>{renderSentence(index)}</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              textAlign: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             {index === curSent
               ? story[index].split(' ').map((word: string) => (
                   <Popover content={wordTrans} trigger='click'>

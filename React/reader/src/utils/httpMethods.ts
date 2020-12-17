@@ -8,7 +8,7 @@ function getHeaders(type: string) {
   const token = localStorage.getItem('token');
 
   return {
-    Authorization: token || '',
+    Authorization: 'bearer ' + token || '',
     'Content-Type': type || 'application/json',
   };
 }

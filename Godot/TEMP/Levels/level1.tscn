@@ -119,7 +119,6 @@ extents = Vector2( 60, 80 )
 [node name="Node" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
 position = Vector2( 330, 140 )
 
 [node name="camera" type="Camera2D" parent="Player"]
@@ -142,10 +141,8 @@ format = 1
 tile_data = PoolIntArray( 196617, 0, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 1, 0, 196624, 3, 0, 196625, 0, 0, 196628, 1, 0, 196629, 1, 0, 196630, 2, 0, 196631, 1, 0, 196633, 3, 0, 196635, 0, 0, 196636, 0, 0, 196639, 3, 0, 196641, 0, 0, 196642, 0, 0, 196643, 0, 0, 196646, 3, 0, 196661, 0, 0, 196662, 1, 0, 196663, 1, 0, 196664, 2, 0, 196667, 2, 0, 196668, 3, 0, 196669, 0, 0, 196670, 0, 0, 196671, 3, 0, 262185, 5, 0, 262186, 5, 0, 262187, 5, 0, 262188, 5, 0, 262189, 5, 0, 262190, 5, 0, 262191, 5, 0, 262192, 5, 0, 262193, 5, 0, 262194, 5, 0, 262195, 5, 0, 327721, 4, 0, 327722, 4, 0, 327723, 4, 0, 327724, 4, 0, 327725, 4, 0, 327726, 4, 0, 327727, 4, 0, 327728, 4, 0, 327729, 4, 0, 327730, 4, 0, 327731, 4, 0, 393257, 4, 0, 393258, 4, 0, 393259, 4, 0, 393260, 4, 0, 393261, 4, 0, 393262, 4, 0, 393263, 4, 0, 393264, 4, 0, 393265, 4, 0, 393266, 4, 0, 393267, 4, 0 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-editor/display_folded = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-editor/display_folded = true
 motion_mirroring = Vector2( 2048, 0 )
 
 [node name="bg" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
@@ -154,14 +151,12 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="swim_zone" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="1" type="CollisionShape2D" parent="swim_zone"]
 position = Vector2( 5952, 704 )
 shape = SubResource( 1 )
 
 [node name="Flag" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 4192, -64 )
 
 [node name="spr" type="AnimatedSprite" parent="Flag"]
@@ -174,7 +169,6 @@ scale = Vector2( 0.738806, 1.21642 )
 shape = SubResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 script = ExtResource( 8 )
 
 [node name="hud_coins" type="Sprite" parent="CanvasLayer"]
@@ -199,7 +193,6 @@ position = Vector2( 1248, 64 )
 frames = SubResource( 6 )
 
 [node name="Switch" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 6570, 830 )
 
 [node name="spr" type="AnimatedSprite" parent="Switch"]
@@ -210,7 +203,6 @@ position = Vector2( 3.3241, 19.9446 )
 shape = SubResource( 8 )
 
 [node name="Door" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 7970, 450 )
 
 [node name="spr" type="AnimatedSprite" parent="Door"]
@@ -225,7 +217,6 @@ position = Vector2( 0, -30 )
 shape = SubResource( 11 )
 
 [node name="Ememy_container" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Enemy_barnacle" parent="Ememy_container" instance=ExtResource( 29 )]
 position = Vector2( 7328, 576 )
@@ -240,7 +231,6 @@ position = Vector2( 7520, 576 )
 position = Vector2( 1152, 448 )
 
 [node name="Boxes" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Box_coin" parent="Boxes" instance=ExtResource( 31 )]
 position = Vector2( 896, 256 )

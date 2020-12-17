@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Col, Row } from 'antd';
+import { Card, Avatar, Col, Row } from 'antd';
 import { get } from '../../../utils/httpMethods';
 const { Meta } = Card;
 
@@ -29,7 +29,7 @@ const Browser = (props: any) => {
   return (
     <div className='mainContainer'>
       <div className='site-card-wrapper'>
-        <Row>
+        <Row justify='center'>
           {stories &&
             stories.map((el: any) => (
               <Col key={el._id}>
@@ -46,20 +46,24 @@ const Browser = (props: any) => {
                         height: 'auto',
                         marginLeft: '10px',
                         marginBottom: '10px',
+                        maxWidth: '200px',
                         boxShadow: '1px 3px 1px 1px rgba(29, 165, 122, 0.5)',
                       }}
                       onMouseLeave={handleExit}
                       cover={
-                        <img
-                          alt='example'
+                        <Avatar
+                          alt={el.title}
+                          size={200}
+                          shape='square'
                           src={el.image}
+                          className='img-fluid'
                           style={{
-                            height: 'auto',
-                            maxHeight: '250px',
                             width: 'auto',
-                            maxWidth: '250px',
+                            maxWidth: '200px',
                           }}
-                        />
+                        >
+                          {el.title}
+                        </Avatar>
                       }
                     >
                       <Meta title={el.title} description={el.author} />
@@ -73,21 +77,25 @@ const Browser = (props: any) => {
                       height: 'auto',
                       marginLeft: '10px',
                       marginBottom: '10px',
+                      maxWidth: '200px',
                     }}
                     onMouseOver={() => {
                       handleHover(el._id);
                     }}
                     cover={
-                      <img
+                      <Avatar
                         alt='example'
+                        size={200}
+                        shape='square'
                         src={el.image}
+                        className='img-fluid'
                         style={{
-                          height: 'auto',
-                          maxHeight: '250px',
                           width: 'auto',
-                          maxWidth: '250px',
+                          maxWidth: '200px',
                         }}
-                      />
+                      >
+                        {el.title}
+                      </Avatar>
                     }
                   >
                     <Meta title={el.title} description={el.author} />
