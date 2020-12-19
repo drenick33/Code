@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { get } from '../../../utils/httpMethods';
 import StoryTrans from './StoryTrans';
-import { Divider, Popover, Button } from 'antd';
+import { Divider, Popover, Button, Col, Row } from 'antd';
 
 //@TODO Rework Story model so that they're array of sentences, and their translations
 
@@ -12,6 +12,7 @@ const Story = (props: any) => {
   let [wordTrans, setWordTrans] = useState(['']);
   let [curSent, setCurSent] = useState(0);
   let [showTrans, setShowTrans] = useState(true);
+  let [isPop, setIsPop] = useState(false);
 
   useEffect(() => {
     queryGetStoryById();
@@ -29,10 +30,37 @@ const Story = (props: any) => {
     setWordTrans(['']);
     let data = await get({ url: '/words/translate/' + word });
     setWordTrans(data.trans.slice(0, 3).join('，'));
+    popContent(word);
+    console.log(wordTrans);
   }
 
+  const popContent = (word: string) => {
+    if (wordTrans == ['']) {
+      setWordTrans(['没有翻译']);
+    }
+    return (
+      <div>
+        <span
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+          }}
+        >
+          {word}:
+        </span>
+        <br />
+        <span>{wordTrans}</span>
+        <br />
+        <Button type='primary'>Save</Button>
+      </div>
+    );
+  };
+
   const handleHover = (index: number) => {
-    setCurSent(index);
+    if (!isPop) {
+      setCurSent(index);
+    }
   };
 
   const handleClick = (word: string) => {
@@ -63,7 +91,12 @@ const Story = (props: any) => {
           >
             {index === curSent
               ? story[index].split(' ').map((word: string) => (
-                  <Popover content={wordTrans} trigger='click'>
+                  <Popover
+                    content={popContent(word)}
+                    title={word}
+                    trigger='click'
+                    onVisibleChange={() => setIsPop(!isPop)}
+                  >
                     <span
                       onClick={() => handleClick(word)}
                       onMouseOver={() => handleHover(index)}
@@ -78,7 +111,7 @@ const Story = (props: any) => {
                   </Popover>
                 ))
               : story[index].split(' ').map((word: string) => (
-                  <Popover content={wordTrans} trigger='click'>
+                  <>
                     <span
                       onClick={() => handleClick(word)}
                       onMouseOver={() => handleHover(index)}
@@ -89,7 +122,7 @@ const Story = (props: any) => {
                     >
                       {word}
                     </span>
-                  </Popover>
+                  </>
                 ))}
           </div>
         ))}

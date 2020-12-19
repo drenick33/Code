@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Avatar, Col, Row } from 'antd';
+import { Card, Avatar, Col, Row, Tag } from 'antd';
 import { get } from '../../../utils/httpMethods';
 const { Meta } = Card;
 
@@ -26,9 +26,40 @@ const Browser = (props: any) => {
     setFocus(0);
   };
 
+  const difficultyTag = (level: string) => {
+    let color = '';
+    switch (level) {
+      case 'Beginner':
+        color = 'lime';
+        break;
+      case 'Elementary':
+        color = 'green';
+        break;
+      case 'Intermediate':
+        color = 'blue';
+        break;
+      case 'Upper Intermediate':
+        color = 'orange';
+        break;
+      case 'Expert':
+        color = 'volcano';
+        break;
+      case 'Master':
+        color = 'magenta';
+        break;
+      default:
+        color = 'purple';
+    }
+
+    return <Tag color={color}>{level}</Tag>;
+  };
+
   return (
     <div className='mainContainer'>
       <div className='site-card-wrapper'>
+        <Row justify='center'>
+          <h1>Newest Stories</h1>
+        </Row>
         <Row justify='center'>
           {stories &&
             stories.map((el: any) => (
@@ -67,7 +98,7 @@ const Browser = (props: any) => {
                       }
                     >
                       <Meta title={el.title} description={el.author} />
-                      {el.level}
+                      {difficultyTag(el.level)}
                     </Card>
                   </Link>
                 ) : (
@@ -99,7 +130,7 @@ const Browser = (props: any) => {
                     }
                   >
                     <Meta title={el.title} description={el.author} />
-                    {el.level}
+                    {difficultyTag(el.level)}
                   </Card>
                 )}
               </Col>

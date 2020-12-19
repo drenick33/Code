@@ -26,8 +26,8 @@ const loginUser = (req, res) => {
                   userId: user._id,
                   role: user.role,
                 },
-                process.env.JWT_KEY,
-                { expiresIn: '1h' }
+                process.env.JWT_KEY
+                // { expiresIn: '1h' }
               );
               return res
                 .status(200)

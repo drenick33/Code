@@ -3,6 +3,7 @@ const Story = require('../storyModel');
 const getAllStories = (req, res) => {
   Story.find()
     .sort({ date: -1 })
+    .limit(10)
     .select('-__v')
     .exec()
     .then((doc) => {
