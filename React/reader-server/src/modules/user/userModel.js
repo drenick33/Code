@@ -30,6 +30,11 @@ const UserSchema = mongoose.Schema({
     ref: 'WordList',
     default: [],
   },
+  words: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Word',
+    default: [],
+  },
   finishedStories: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Story',

@@ -4,11 +4,13 @@ const getUserById = require('./controllers/getUserById');
 const registerUser = require('./controllers/registerUser');
 const deleteUserById = require('./controllers/deleteUserById');
 const loginUser = require('./controllers/loginUser');
+const getUserWords = require('./controllers/getUserWords');
 const checkAuth = require('../auth/checkAuth');
 //These routes start at /Stories/
 
 // //Get Methods
 router.get('/', checkAuth, getUserById);
+router.get('/words', checkAuth, getUserWords);
 
 // //Post methods
 // router.post('/search', searchStories);

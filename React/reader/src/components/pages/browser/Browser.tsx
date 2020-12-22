@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Avatar, Col, Row, Tag } from 'antd';
 import { get } from '../../../utils/httpMethods';
+import { browserStrings } from './Strings';
 const { Meta } = Card;
 
 const Browser = (props: any) => {
@@ -10,6 +11,8 @@ const Browser = (props: any) => {
 
   useEffect(() => {
     queryGetAllStories();
+    let lang = localStorage.getItem('locale') || '';
+    browserStrings.setLanguage(lang);
   }, []);
 
   async function queryGetAllStories(): Promise<any> {
@@ -58,7 +61,7 @@ const Browser = (props: any) => {
     <div className='mainContainer'>
       <div className='site-card-wrapper'>
         <Row justify='center'>
-          <h1>Newest Stories</h1>
+          <h1>{browserStrings.new}</h1>
         </Row>
         <Row justify='center'>
           {stories &&
@@ -140,4 +143,5 @@ const Browser = (props: any) => {
     </div>
   );
 };
+
 export default Browser;
