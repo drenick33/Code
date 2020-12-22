@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { Menu, Button } from 'antd';
@@ -11,6 +11,7 @@ import {
   IAuthReduxProps,
 } from '../../types/interfaces';
 import { get } from 'lodash';
+import { navStrings } from './Strings';
 
 const Navbar = ({ logout, auth }: ILogoutProps) => {
   let history = useHistory();
@@ -28,18 +29,23 @@ const Navbar = ({ logout, auth }: ILogoutProps) => {
       <Menu.Item key='1'>
         <a href='/'>
           <HomeTwoTone twoToneColor={'#1DA57A'} />
-          <span>Reader</span>
+          <span>{navStrings.reader}</span>
         </a>
       </Menu.Item>
       <Menu.Item key='3' style={{ float: 'right' }}>
         <NavDrawer></NavDrawer>
       </Menu.Item>
       {auth.isAuthenticated ? (
-        <Menu.Item key='5' style={{ float: 'right' }}>
-          <Button type='text' onClick={logoutHandler}>
-            Log Out
-          </Button>
-        </Menu.Item>
+        <>
+          <Menu.Item key='5' style={{ float: 'right' }}>
+            <Button type='text' onClick={logoutHandler}>
+              {navStrings.logout}
+            </Button>
+          </Menu.Item>
+          <Menu.Item key='2' style={{ float: 'right' }}>
+            <Link to={{ pathname: '/words' }}>{navStrings.saved}</Link>
+          </Menu.Item>
+        </>
       ) : (
         <>
           <Menu.Item key='6' style={{ float: 'right' }}>
@@ -48,7 +54,7 @@ const Navbar = ({ logout, auth }: ILogoutProps) => {
                 pathname: '/user/register',
               }}
             >
-              Register
+              {navStrings.register}
             </Link>
           </Menu.Item>
           <Menu.Item key='7' style={{ float: 'right' }}>
@@ -57,22 +63,18 @@ const Navbar = ({ logout, auth }: ILogoutProps) => {
                 pathname: '/user/login',
               }}
             >
-              Login
+              {navStrings.login}
             </Link>
           </Menu.Item>
         </>
       )}
-
-      <Menu.Item key='2' style={{ float: 'right' }}>
-        <a href='savedwords'>Saved Words</a>
-      </Menu.Item>
       <Menu.Item key='4' style={{ float: 'right' }}>
         <Link
           to={{
             pathname: '/custom/',
           }}
         >
-          Custom Text
+          {navStrings.custom}
         </Link>
       </Menu.Item>
       {role === 'admin' ? (
@@ -82,7 +84,7 @@ const Navbar = ({ logout, auth }: ILogoutProps) => {
               pathname: '/addstory/',
             }}
           >
-            Add Story
+            {navStrings.add}
           </Link>
         </Menu.Item>
       ) : null}

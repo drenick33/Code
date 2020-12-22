@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, Button } from 'antd';
 import { SoundTwoTone, SaveTwoTone } from '@ant-design/icons';
 import { get } from 'lodash';
+import { storyStrings } from './Strings';
 
 const StoryTrans = (props: any) => {
   let chinese = get(props, 'chinese', ['']);
@@ -20,7 +21,7 @@ const StoryTrans = (props: any) => {
         {showTrans ? (
           <p style={{ fontSize: '24px' }}>{chinese}</p>
         ) : (
-          <p style={{ fontSize: '24px' }}>Click here to show translation</p>
+          <p style={{ fontSize: '24px' }}>{storyStrings.show}</p>
         )}
       </Space>
       <Space

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { get } from '../../../utils/httpMethods';
+import { connect } from 'react-redux';
+import { get, patch, post } from '../../../utils/httpMethods';
 import StoryTrans from './StoryTrans';
-import { Divider, Popover, Button, Col, Row } from 'antd';
+import { Divider, Popover, Button, Col, Row, notification } from 'antd';
+import { storyStrings } from './Strings';
+import { get as got } from 'lodash';
 
 //@TODO Rework Story model so that they're array of sentences, and their translations
 
@@ -13,9 +16,12 @@ const Story = (props: any) => {
   let [curSent, setCurSent] = useState(0);
   let [showTrans, setShowTrans] = useState(true);
   let [isPop, setIsPop] = useState(false);
+  const userId = got(props, 'auth.user.user._id', '');
 
   useEffect(() => {
     queryGetStoryById();
+    let lang = localStorage.getItem('locale') || '';
+    storyStrings.setLanguage(lang);
   }, []);
 
   async function queryGetStoryById(): Promise<any> {
@@ -24,6 +30,40 @@ const Story = (props: any) => {
     setStory(data.english);
     setTrans(data.chinese);
     setTitle(data.title);
+  }
+
+  async function queryAddWord(word: string): Promise<any> {
+    console.log(userId);
+    if (userId === '') {
+      notification.warning({
+        message: storyStrings.noUserTitle,
+        description: storyStrings.noUserDesc,
+      });
+    } else {
+      let newWord = await post({
+        url: '/words/',
+        data: {
+          word: word,
+          trans: wordTrans,
+          storyId: props.match.params.storyId,
+        },
+      });
+
+      let data = await patch({
+        url: '/words/user/' + userId,
+        data: {
+          wordId: newWord.Word._id,
+        },
+      });
+      if (data) {
+        notification.success({
+          message: storyStrings.wordSucTitle,
+          description: word,
+        });
+      } else {
+        notification.error({ message: storyStrings.wordErrTitle });
+      }
+    }
   }
 
   async function queryGetWordTrans(word: string): Promise<any> {
@@ -52,7 +92,9 @@ const Story = (props: any) => {
         <br />
         <span>{wordTrans}</span>
         <br />
-        <Button type='primary'>Save</Button>
+        <Button type='primary' onClick={() => queryAddWord(word)}>
+          {storyStrings.save}
+        </Button>
       </div>
     );
   };
@@ -131,4 +173,8 @@ const Story = (props: any) => {
   );
 };
 
-export default Story;
+const mapStateToProps = (state: any) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, null)(Story);

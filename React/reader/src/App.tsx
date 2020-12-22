@@ -27,7 +27,7 @@ function App() {
           <Route exact path='/' component={Browser} />
           <Route path='/story/:storyId' component={Story} />
           <Route path='/addstory' component={StoryAdd} />
-          <Route exact path='/savedwords' component={SavedWords} />
+          <Route exact path='/words' component={SavedWords} />
           <Route exact path='/custom' component={InputForm} />
           <Route exact path='/user/register' component={UserRegister} />
           <Route exact path='/user/login' component={UserLogin} />

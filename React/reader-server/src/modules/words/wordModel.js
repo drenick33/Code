@@ -6,7 +6,11 @@ const wordSchema = mongoose.Schema({
   word: { type: String, required: true },
   trans: { type: String, required: true },
   date: Date,
-  story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story', required: true },
+  story: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Story',
+    required: false,
+  },
 });
 
 module.exports = mongoose.model('Word', wordSchema);

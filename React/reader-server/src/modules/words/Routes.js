@@ -13,6 +13,8 @@ const deleteWordListById = require('./controllers/deleteWordListById');
 const editWord = require('./controllers/editWord');
 const checkAuth = require('../auth/checkAuth');
 const wordTranslate = require('./controllers/wordTranslate');
+const addWordToUser = require('./controllers/addWordToUser');
+const removeWordFromUser = require('./controllers/removeWordFromUser');
 //These routes start at /words/
 
 //Get Methods
@@ -32,6 +34,8 @@ router.post('/search', searchWords);
 //router.patch('/list/:listId', addWordToList); //Patch since we'll be adding to an array
 router.patch('/list/:listId', editWordList);
 router.patch('/:wordId', editWord);
+router.patch('/user/:userId', addWordToUser);
+router.patch('/user/remove/:userId', removeWordFromUser);
 
 //Delete methods
 router.delete('/:wordId', deleteWordById);
