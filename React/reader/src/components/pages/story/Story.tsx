@@ -12,6 +12,7 @@ const Story = (props: any) => {
   let [story, setStory] = useState(['']);
   let [trans, setTrans] = useState(['']);
   let [title, setTitle] = useState('');
+  let [highlight, setHighlight] = useState('');
   let [wordTrans, setWordTrans] = useState(['']);
   let [curSent, setCurSent] = useState(0);
   let [showTrans, setShowTrans] = useState(true);
@@ -102,10 +103,12 @@ const Story = (props: any) => {
   const handleHover = (index: number) => {
     if (!isPop) {
       setCurSent(index);
+      setHighlight('');
     }
   };
 
   const handleClick = (word: string) => {
+    setHighlight(word);
     queryGetWordTrans(word);
   };
 
@@ -139,17 +142,32 @@ const Story = (props: any) => {
                     trigger='click'
                     onVisibleChange={() => setIsPop(!isPop)}
                   >
-                    <span
-                      onClick={() => handleClick(word)}
-                      onMouseOver={() => handleHover(index)}
-                      style={{
-                        marginLeft: '.5rem',
-                        fontSize: '32px',
-                        color: '#15A57A',
-                      }}
-                    >
-                      {word}
-                    </span>
+                    {word === highlight ? (
+                      <span
+                        onClick={() => handleClick(word)}
+                        onMouseOver={() => handleHover(index)}
+                        style={{
+                          marginLeft: '.5rem',
+                          fontSize: '32px',
+                          color: '#15A57A',
+                          backgroundColor: 'lightyellow',
+                        }}
+                      >
+                        {word}
+                      </span>
+                    ) : (
+                      <span
+                        onClick={() => handleClick(word)}
+                        onMouseOver={() => handleHover(index)}
+                        style={{
+                          marginLeft: '.5rem',
+                          fontSize: '32px',
+                          color: '#15A57A',
+                        }}
+                      >
+                        {word}
+                      </span>
+                    )}
                   </Popover>
                 ))
               : story[index].split(' ').map((word: string) => (

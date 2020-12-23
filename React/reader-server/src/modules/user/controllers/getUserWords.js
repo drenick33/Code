@@ -6,13 +6,14 @@ const getUserWords = (req, res) => {
   const userId = req.userData.userId;
   User.findOne({ _id: userId })
     .select('words')
-    .populate({ path: 'words', select: 'word, trans' }) //Check if email is already used
+    .populate({ path: 'words', model: 'Word', select: 'trans word date' }) //Check if email is already used
     .exec()
     .then((user) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found', error });
       }
-      return res.status(200).json({ message: 'User found', user });
+      const result = user.words.reverse();
+      return res.status(200).json(result);
     })
     .catch((error) => {
       return res.status(404).json({ message: 'User not found', error });

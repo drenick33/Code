@@ -6,7 +6,7 @@ import './App.less';
 import Navbar from './components/layout/Navbar';
 import Story from './components/pages/story/Story';
 import Browser from './components/pages/browser/Browser';
-import SavedWords from './components/pages/savedWords/SavedWords';
+import WordList from './components/pages/savedWords/WordList';
 import InputForm from './components/pages/userText/InputForm';
 import UserRegister from './components/pages/user/userRegister';
 import UserLogin from './components/pages/user/userLogin';
@@ -27,7 +27,7 @@ function App() {
           <Route exact path='/' component={Browser} />
           <Route path='/story/:storyId' component={Story} />
           <Route path='/addstory' component={StoryAdd} />
-          <Route exact path='/words' component={SavedWords} />
+          <Route exact path='/words' component={WordList} />
           <Route exact path='/custom' component={InputForm} />
           <Route exact path='/user/register' component={UserRegister} />
           <Route exact path='/user/login' component={UserLogin} />
