@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { get, patch, post } from '../../../utils/httpMethods';
 import StoryTrans from './StoryTrans';
-import { Divider, Popover, Button, Col, Row, notification } from 'antd';
+import { Divider, Popover, Button, Affix, notification } from 'antd';
 import { storyStrings } from './Strings';
 import { get as got } from 'lodash';
 
@@ -17,13 +17,66 @@ const Story = (props: any) => {
   let [curSent, setCurSent] = useState(0);
   let [showTrans, setShowTrans] = useState(true);
   let [isPop, setIsPop] = useState(false);
+  let [imSpeaking, setImSpeaking] = useState(false);
   const userId = got(props, 'auth.user.user._id', '');
+
+  let synth = window.speechSynthesis;
+  let voices = synth.getVoices();
+  console.log(voices);
 
   useEffect(() => {
     queryGetStoryById();
     let lang = localStorage.getItem('locale') || '';
     storyStrings.setLanguage(lang);
   }, []);
+
+  useEffect(() => {
+    if (imSpeaking) {
+      speak(story[curSent]);
+    }
+  }, [curSent]);
+
+  const pause = () => {
+    synth.cancel();
+    setImSpeaking(false);
+  };
+
+  const sayTrans = (text: string) => {
+    if (text !== '') {
+      let utterThis = new SpeechSynthesisUtterance(text);
+      utterThis.voice = voices[3];
+      synth.speak(utterThis);
+    }
+  };
+
+  const speak = (text: string) => {
+    setImSpeaking(true); //adjust for individual words
+    // if (synth.speaking) {
+    //   console.error('speechSynthesis.speaking');
+    //   return;
+    // }
+    if (text !== '') {
+      let utterThis = new SpeechSynthesisUtterance(text);
+      utterThis.onend = function (event) {
+        console.log('SpeechSynthesisUtterance.onend');
+        if (curSent < story.length - 1) {
+          let newIndex = curSent + 1;
+          console.log(curSent);
+          setCurSent(newIndex);
+        }
+      };
+      utterThis.onerror = function (event) {
+        console.error('SpeechSynthesisUtterance.onerror');
+        synth.cancel();
+      };
+      utterThis.voice = voices[3]; //@TODO - make this not hard-coded later
+      console.log('hi');
+      console.log(text);
+      synth.speak(utterThis);
+    } else {
+      notification.error({ message: 'No Text To Read' });
+    }
+  };
 
   async function queryGetStoryById(): Promise<any> {
     let _id = props.match.params.storyId;
@@ -96,18 +149,24 @@ const Story = (props: any) => {
         <Button type='primary' onClick={() => queryAddWord(word)}>
           {storyStrings.save}
         </Button>
+        <Button type='primary' onClick={() => sayTrans(word)}>
+          Speak
+        </Button>
       </div>
     );
   };
 
   const handleHover = (index: number) => {
-    if (!isPop) {
+    if (!isPop && !synth.speaking) {
       setCurSent(index);
       setHighlight('');
     }
   };
 
-  const handleClick = (word: string) => {
+  const handleClick = (word: string, index: number) => {
+    setImSpeaking(false);
+    synth.cancel();
+    setCurSent(index);
     setHighlight(word);
     queryGetWordTrans(word);
   };
@@ -144,7 +203,7 @@ const Story = (props: any) => {
                   >
                     {word === highlight ? (
                       <span
-                        onClick={() => handleClick(word)}
+                        onClick={() => handleClick(word, index)}
                         onMouseOver={() => handleHover(index)}
                         style={{
                           marginLeft: '.5rem',
@@ -157,7 +216,7 @@ const Story = (props: any) => {
                       </span>
                     ) : (
                       <span
-                        onClick={() => handleClick(word)}
+                        onClick={() => handleClick(word, index)}
                         onMouseOver={() => handleHover(index)}
                         style={{
                           marginLeft: '.5rem',
@@ -173,7 +232,7 @@ const Story = (props: any) => {
               : story[index].split(' ').map((word: string) => (
                   <>
                     <span
-                      onClick={() => handleClick(word)}
+                      onClick={() => handleClick(word, index)}
                       onMouseOver={() => handleHover(index)}
                       style={{
                         marginLeft: '.5rem',
@@ -187,6 +246,22 @@ const Story = (props: any) => {
           </div>
         ))}
       </div>
+      <Affix offsetBottom={20} className='float-right pr-3'>
+        {imSpeaking ? (
+          <Button type='primary' shape='round' size='large' onClick={pause}>
+            {storyStrings.stop}
+          </Button>
+        ) : (
+          <Button
+            type='primary'
+            shape='round'
+            size='large'
+            onClick={() => speak(story[curSent])}
+          >
+            {storyStrings.play}
+          </Button>
+        )}
+      </Affix>
     </div>
   );
 };
