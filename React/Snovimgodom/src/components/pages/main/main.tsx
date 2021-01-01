@@ -40,6 +40,9 @@ const Main = (props: any) => {
     ) {
       setFin(true);
       setFinAns('Боюсь, что ты ошибся на 1 букву :(');
+    } else if (x.includes('дочь')) {
+      setFin(true);
+      setFinAns('Какая? Попробуй еще раз.');
     } else {
       setFin(true);
       setFinAns('Неужели ' + answer + '? Попробуй еще раз.');
