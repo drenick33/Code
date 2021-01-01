@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 //Redux Store
 
-document.title = 'Snovimgodom';
+document.title = 'С Новым годом';
 ReactDOM.render(
   <React.StrictMode>
     <App />
