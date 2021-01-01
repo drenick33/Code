@@ -10,12 +10,10 @@ const Main = (props: any) => {
 
   const handleChange = (e: any) => {
     setAnswer(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleSubmit = () => {
     let x = answer.toLowerCase();
-    console.log(x);
     if (x.includes('саша') || x.includes('саш') || x.includes('sash')) {
       setFin(true);
       setFinAns(
