@@ -89,7 +89,7 @@ const Main = (props: any) => {
                   onClick={onRestart}
                   style={{ zIndex: 999 }}
                 >
-                  Попробуй еще раз
+                  Попробовать еще раз
                 </Button>
               </Row>
             </Col>
