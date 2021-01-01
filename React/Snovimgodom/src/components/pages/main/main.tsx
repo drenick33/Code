@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Input, Row, Col, Button } from 'antd';
 import win from './win.gif';
 
@@ -59,6 +58,7 @@ const Main = (props: any) => {
       {won ? (
         <img
           src={win}
+          alt='love'
           style={{
             position: 'absolute',
             zIndex: 998,
