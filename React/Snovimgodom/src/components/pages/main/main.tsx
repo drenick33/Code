@@ -39,7 +39,7 @@ const Main = (props: any) => {
       x.includes('dash')
     ) {
       setFin(true);
-      setFinAns('Боюсь, что ты ошибся буквой :(');
+      setFinAns('Боюсь, что ты ошибся на 1 букву :(');
     } else {
       setFin(true);
       setFinAns('Неужели ' + answer + '? Попробуй еще раз.');
